@@ -1,0 +1,243 @@
+:root {
+  --primary-blue: #1a237e;
+  --primary-dark: #000051;
+  --accent-green: #00c853;
+  --accent-gold: #ffd700;
+  --background: #f8f9fa;
+  --surface: #ffffff;
+  --text-primary: #2c3e50;
+  --text-secondary: #6c757d;
+  --success: #28a745;
+  --warning: #ffc107;
+  --error: #dc3545;
+  --secondary-blue: #1a6f7e;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --border-radius: 16px;
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: linear-gradient(135deg, var(--background) 0%, #e9ecef 100%);
+  color: var(--text-primary);
+  min-height: 100vh;
+}
+
+
+section {
+  background: var(--surface);
+  border: 2px solid #e3f2fd;
+  margin-top: 16px;
+  padding: 24px;
+  border-radius: var(--border-radius);
+  width: 100%;
+  max-width: 600px;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  margin-left: auto;
+  margin-right: auto;
+  display: block
+}
+
+section:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+
+label {
+  margin-top: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 14px;
+  display: block;
+}
+
+h3 {
+  background: linear-gradient(135deg, var(--primary-dark), var(--secondary-blue));
+  color: white;
+  padding: 16px;
+  border-radius: var(--border-radius);
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+
+  margin-left: auto;
+  margin-right: auto;
+  display: block
+}
+
+h4 {
+  margin-top: 4px;
+  margin-bottom: 0;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--accent-green);
+  font-size: 1.1rem;
+}
+
+
+button {
+  margin-top: 16px;
+  background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(26, 35, 126, 0.3);
+  width: 100%;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(26, 35, 126, 0.4);
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary-blue));
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+
+input {
+  width: 100%;
+  padding: 14px;
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background: var(--surface);
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.1);
+}
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+th {
+  background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
+  color: white;
+  padding: 16px;
+  font-weight: 600;
+  text-align: center;
+}
+
+td {
+  padding: 14px;
+  border-bottom: 1px solid #e9ecef;
+  text-align: center;
+  background: var(--surface);
+}
+
+tr:hover td {
+  background-color: #f8f9fa;
+}
+
+
+#agenda {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 16px;
+}
+
+.ficha {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin-top: 16px;
+  padding: 20px;
+  background: var(--surface);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
+
+
+#mainForm {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 500px;
+  gap: 16px;
+}
+
+
+.colCurrency {
+  text-align: right;
+  padding-left: 16px;
+  font-weight: 600;
+  color: var(--success);
+  font-family: 'Courier New', monospace;
+}
+
+.colNumber {
+  width: 80px;
+  text-align: center;
+  font-weight: 600;
+}
+
+
+.spanInfo {
+  font-size: 12px;
+  font-style: italic;
+  color: var(--text-secondary);
+  margin-top: 8px;
+  display: block;
+}
+
+
+.positive-amount {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.negative-amount {
+  color: var(--error);
+  font-weight: 600;
+}
+
+.pending-transaction {
+  background: linear-gradient(135deg, #fff3cd, #ffecb5);
+  border-left: 4px solid var(--warning);
+}
+
+
+@media (max-width: 768px) {
+  section {
+    margin: 12px;
+    padding: 20px;
+    max-width: none;
+  }
+  
+  #mainForm {
+    max-width: none;
+  }
+  
+  .app-container {
+    padding: 12px;
+  }
+}
