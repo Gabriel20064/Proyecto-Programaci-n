@@ -2,14 +2,16 @@ export interface iTransaccion {
     descripcion: string;
     monto: number;
     referencia: string;
+    fecha: number;
     categoria: string;
 }
 export default class Cl_mTransaccion{
-        protected _descripcion: string ="";
+    protected _descripcion: string ="";
     protected _monto: number =0 ;
     protected _referencia: string ="";
     protected _categoria: string ="";
-    constructor({descripcion, monto, referencia, categoria}: {descripcion: string, monto: number, referencia: string, categoria: string}){
+    protected _fecha: number = 0;
+    constructor({descripcion, monto, referencia, categoria, fecha}: {descripcion: string, monto: number, referencia: string, categoria: string, fecha: number}){
         this.descripcion = descripcion;
         this.monto = monto;
         this.referencia = referencia;
@@ -32,6 +34,12 @@ export default class Cl_mTransaccion{
     }
     public get referencia(): string {
         return this._referencia.trim().toUpperCase();
+    }
+    public set fecha(f: number) {
+        this._fecha = f;
+    }
+    public get fecha(): number {
+        return this._fecha;
     }
     public set categoria(c: string) {
         this._categoria = c;
@@ -57,6 +65,7 @@ export default class Cl_mTransaccion{
     descripcion: this._descripcion,
     monto: this._monto,
     referencia: this._referencia,
+    fecha: this._fecha,
     categoria: this._categoria,
     error: this.error()};
     }
