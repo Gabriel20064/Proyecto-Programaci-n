@@ -1,3 +1,9 @@
+export interface iTransaccion {
+    descripcion: string;
+    monto: number;
+    referencia: string;
+    categoria: string;
+}
 export default class Cl_mTransaccion{
         protected _descripcion: string ="";
     protected _monto: number =0 ;
@@ -25,7 +31,7 @@ export default class Cl_mTransaccion{
         this._referencia = r;
     }
     public get referencia(): string {
-        return this._referencia;
+        return this._referencia.trim().toUpperCase();
     }
     public set categoria(c: string) {
         this._categoria = c;
@@ -33,6 +39,25 @@ export default class Cl_mTransaccion{
     public get categoria(): string {
         return this._categoria;
     }
-    //Metodos 
-    public 
+    //Metodo de validacion 
+  error(): string | false {
+    // Validacion de Referencia
+    if (this._referencia.length === 0) return "La referencia no puede estar vacía.";
+    if (this._referencia.length !== 4) return "La referencia debe tener al menos 4 digitos.";
+    // Validacion de monto
+    if (this._monto <= 0) return "El monto debe ser mayor a 0.";
+    if (this._monto === 0) return "El monto no puede estar vacio.";
+    // Validacion de descripcion
+    if (this._descripcion.length === 0) return "La descripcion no puede estar vacía.";
+    if (this._descripcion.length > 15) return "La descripcion no debe tener más de 15 caracteres.";
+    return false;
+  };
+  toJSON(){
+    return {
+    descripcion: this._descripcion,
+    monto: this._monto,
+    referencia: this._referencia,
+    categoria: this._categoria,
+    error: this.error()};
+    }
 }
