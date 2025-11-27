@@ -48,7 +48,7 @@ export default class Cl_mTransaccion{
         return this._categoria;
     }
     //Metodo de validacion 
-  error(): string | false {
+  public error(): string | false {
     // Validacion de Referencia
     if (this._referencia.length === 0) return "La referencia no puede estar vacía.";
     if (this._referencia.length !== 4) return "La referencia debe tener al menos 4 digitos.";
@@ -59,7 +59,21 @@ export default class Cl_mTransaccion{
     if (this._descripcion.length === 0) return "La descripcion no puede estar vacía.";
     if (this._descripcion.length > 15) return "La descripcion no debe tener más de 15 caracteres.";
     return false;
-  };
+  }
+
+  //Metodos de clases derivadas
+public dineroTotalE(): number {
+    return 0;
+}
+public dineroTotalS(): number {
+    return 0;
+}
+public montoTotalComisiones(): number {
+    return 0;
+}
+public tipoTransaccion(): number {
+    return 0;
+}
   toJSON(){
     return {
     descripcion: this._descripcion,
@@ -67,6 +81,11 @@ export default class Cl_mTransaccion{
     referencia: this._referencia,
     fecha: this._fecha,
     categoria: this._categoria,
-    error: this.error()};
+    error: this.error(),
+    dineroTotalE: this.dineroTotalE(),
+    dineroTotalS: this.dineroTotalS(),
+    montoTotalComisiones: this.montoTotalComisiones(),
+    tipoTransaccion: this.tipoTransaccion(),
     }
+  }
 }
