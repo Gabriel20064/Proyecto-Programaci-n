@@ -1,6 +1,10 @@
 import Cl_mTransaccion, {iTransaccion} from "./Cl_mTransaccion.js";
 
 export default class Cl_mBanco{
+    private 
+    constructor(){
+
+    }
     private banco: Cl_mTransaccion[] = [];
     agregarTransaccion({
         transaccion,
@@ -22,7 +26,7 @@ export default class Cl_mBanco{
             return;
         }
         this.banco.push(transaccion);
-        
+
         //localStorage
         localStorage.setItem("Banco", JSON.stringify(this.listar()));
         callback(false);
