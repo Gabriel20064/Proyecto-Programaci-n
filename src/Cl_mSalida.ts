@@ -30,11 +30,17 @@ export default class Cl_mSalida extends Cl_mTransaccion{
     //metodo de validacion
     
     //metodos
+    public comision(): number {
+        if (this.tipoTransaccion === 1) {
+            return this.monto * 0.003; 
+        }else return 0;
+    }
 
     toJSON(){
         return {
             ...super.toJSON(),
             tipoTransaccion: this.tipoTransaccion,
+            comision: this.comision(),
         }
     }
 
