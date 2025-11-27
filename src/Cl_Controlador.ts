@@ -1,49 +1,56 @@
-export default class Cl_controlador {
-  public modelo: Cl_mUcla;
-  public vista: Cl_vUcla;
-  constructor(modelo: Cl_mUcla, vista: Cl_vUcla) {
+
+import Cl_mTransaccion, { iTransaccion } from "./Cl_mTransaccion.js";
+import Cl_mSalida from "./Cl_mSalida.js";
+import Cl_mEntrada from "./Cl_mEntrada.js";
+import Cl_mBanco from "./Cl_mBanco.js";
+import Cl_vBanco from "./Cl_vBanco.js";
+import { opcionFicha } from "./tools/core.tools";
+export default class Cl_Controlador {
+  public modelo: Cl_mBanco;
+  public vista: Cl_vBanco;
+  constructor(modelo: Cl_mBanco, vista: Cl_vBanco) {
     this.modelo = modelo;
     this.vista = vista;
   }
-  addMateria({
-    dtMateria,
+  addTransaccion({
+    dtTransaccion,
     callback,
   }: {
-    dtMateria: iMateria;
+    dtTransaccion: iTransaccion;
     callback: (error: string | false) => void;
   }): void {
-    this.modelo.addMateria({
-      dtMateria,
+    this.modelo.addTransaccion({
+      dtTransaccion,
       callback,
     });
   }
-  editMateria({
-    dtMateria,
+  editTransaccion({
+    dtTransaccion,
     callback,
   }: {
-    dtMateria: iMateria;
+    dtTransaccion: iTransaccion;
     callback: (error: string | boolean) => void;
   }): void {
-    this.modelo.editMateria({
-      dtMateria,
+    this.modelo.editTransaccion({
+      dtTransaccion,
       callback,
     });
   }
-  deleteMateria({
+  deleteTransaccion({
     codigo,
     callback,
   }: {
     codigo: string;
     callback: (error: string | boolean) => void;
   }): void {
-    this.modelo.deleteMateria({
+    this.modelo.deleteTransaccion({
       codigo,
       callback,
     });
   }
-  materia(codigo: string): Cl_mMateria | null {
-    let materia = this.modelo.materia(codigo);
-    if (materia) return new Cl_mMateria(materia.toJSON());
+  transaccion(codigo: string): Cl_mTransaccion | null {
+    let transaccion = this.modelo.transaccion(codigo);
+    if (transaccion) return new Cl_mTransaccion(transaccion.toJSON());
     else return null;
   }
   get dtMaterias(): iMateria[] {
@@ -67,3 +74,4 @@ export default class Cl_controlador {
   }): void {
     this.vista.activarVista({ vista, opcion, objeto });
   }
+}
