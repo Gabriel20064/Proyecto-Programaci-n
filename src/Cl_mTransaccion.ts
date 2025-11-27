@@ -66,7 +66,7 @@ export default class Cl_mTransaccion{
         return 0;
     }
     public montoF() : number {
-        return this._monto;
+        return this._monto + this.comision();
     }
   toJSON(){
     return {
