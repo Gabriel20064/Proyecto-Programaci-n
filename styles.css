@@ -61,6 +61,7 @@ label {
 }
 
 h3 {
+  margin-top: 5px;
   background: linear-gradient(135deg, var(--primary-dark), var(--secondary-blue));
   color: white;
   padding: 16px;
@@ -96,18 +97,18 @@ button {
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0 ease;
   box-shadow: 0 4px 15px rgba(26, 35, 126, 0.3);
   width: 100%;
 }
 
 button:hover {
-  box-shadow: 0 6px 20px rgb(15, 24, 148);
-  background:#196B7C;
+  box-shadow: 0 6px 20px rgb(0, 16, 31);
+  background:#106a7a;
 }
 
 button:active {
-  transform: translateY(0);
+  background-color: #135081;
 }
 
 
@@ -138,7 +139,7 @@ table {
 }
 
 th {
-  background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
+  background: linear-gradient(210deg, var(--primary-blue), var(--primary-dark));
   color: white;
   padding: 16px;
   font-weight: 600;
