@@ -43,6 +43,9 @@ export default class Cl_mBanco{
         } else {
             this.acmMontoSalida += t.monto;*/
         }
+   public cantidadTransacciones(): number {
+        return this.cntTransacciones;
+        }
     }
     //Metodos de retorno
 /*    public montoTotalTSalidas(): number {
@@ -51,9 +54,8 @@ export default class Cl_mBanco{
     public montoTotalTEntradas(): number {
         return this.acmMontoEntrada;
     }  */
-    public cantidadTransacciones(): number {
-        return this.cntTransacciones;
-    }
+ 
+
 /*    public resultadoFinanciero(): number | string {
         if (this.montoTotalTEntradas() > this.montoTotalTSalidas()) {
             return "Utilidad de" + (this.montoTotalTEntradas() - this.montoTotalTSalidas());

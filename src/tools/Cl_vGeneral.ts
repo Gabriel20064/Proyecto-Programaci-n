@@ -1,4 +1,4 @@
-import Cl_Controlador from "../Cl_Controlador";
+import Cl_controlador from "../Cl_controlador.js";
 declare global {
   interface HTMLSelectElement {
     refill: (elementsSource: any[] | undefined) => void;
@@ -18,7 +18,7 @@ Object.freeze(tHTMLElement);
 export default class Cl_vGeneral {
   private _formName: string = "";
   private _vista: HTMLElement | null = null;
-  private _controlador: Cl_Controlador | null = null;
+  private _controlador: Cl_controlador | null = null;
   private objects: HTMLElement[] = [];
   constructor({ formName }: { formName: string }) {
     this.formName = formName;
@@ -36,13 +36,12 @@ export default class Cl_vGeneral {
   get vista(): HTMLElement | null {
     return this._vista;
   }
-  set controlador(controlador: Cl_Controlador) {
+  set controlador(controlador: Cl_controlador) {
     this._controlador = controlador;
   }
-  get controlador(): Cl_Controlador | null {
+  get controlador(): Cl_controlador | null {
     return this._controlador;
   }
-
   refresh() {
     this.objects.forEach((element) => element.refresh());
   }
@@ -188,7 +187,27 @@ export default class Cl_vGeneral {
     domElement.refill(elementsSource);
     return domElement;
   }
+  crearHTMLLabelElement(
+    elementName: string,
+    {
+      onclick = () => {},
+      refresh = () => {},
+    }: {
+      onclick?: () => void;
+      refresh?: () => void;
+    } = {
+      onclick: () => {},
+      refresh: () => {},
+    }
+  ): HTMLLabelElement {
+    let domElement = this.crearHTMLElement(elementName, {
+      type: tHTMLElement.LABEL,
+      refresh,
+    }) as HTMLLabelElement;
+    return domElement;
+  }
+
   show({ ver = true }: { ver?: boolean } = { ver: true }): void {
-    if (this.vista) this.vista.style.display = ver ? "flex" : "none";
+    if (this.vista) this.vista.style.display = ver ? "" : "none";
   }
 }
