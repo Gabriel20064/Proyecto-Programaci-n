@@ -38,29 +38,27 @@ export default class Cl_mBanco{
     }
     procesarTransacciones(t:Cl_mTransaccion) {
         this.cntTransacciones++;
-/*        if (t.monto > 0) {
-            this.acmMontoEntrada += t.monto;
+        if (t.transaccion() > 0) {
+            this.acmMontoEntrada += t.transaccion();
         } else {
-            this.acmMontoSalida += t.monto;*/
-        }
-   public cantidadTransacciones(): number {
-        return this.cntTransacciones;
+            this.acmMontoSalida += t.transaccion();
         }
     }
-    //Metodos de retorno
-/*    public montoTotalTSalidas(): number {
+    public cantidadTransacciones(): number {
+        return this.cntTransacciones;
+        }
+         //Metodos de retorno
+    public montoTotalTSalidas(): number {
         return this.acmMontoSalida;
     }
     public montoTotalTEntradas(): number {
         return this.acmMontoEntrada;
-    }  */
- 
-
-/*    public resultadoFinanciero(): number | string {
+    }  
+    public resultadoFinanciero(): number | string {
         if (this.montoTotalTEntradas() > this.montoTotalTSalidas()) {
-            return "Utilidad de" + (this.montoTotalTEntradas() - this.montoTotalTSalidas());
+            return "Utilidad de" + (this.montoTotalTEntradas() + this.montoTotalTSalidas());
         } else {
-            return "Perdida de" + (this.montoTotalTSalidas() - this.montoTotalTEntradas());
+            return "Perdida de" + (this.montoTotalTSalidas() + this.montoTotalTEntradas());
         }
-    }
-}*/
+    }  
+}

@@ -75,7 +75,7 @@ export default class Cl_mTransaccion{
     if (this._tipoTransaccion === 1) {
         return this._monto;
     } else {
-        return -this._monto;
+        return this._monto*(-1);
     }
   }
   toJSON(){
