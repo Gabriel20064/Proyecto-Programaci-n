@@ -1,6 +1,4 @@
 import Cl_mTransaccion, {iTransaccion} from "./Cl_mTransaccion.js";
-import Cl_mSalida from "./Cl_mSalida.js";
-import Cl_mEntrada from "./Cl_mEntrada.js";
 export default class Cl_mBanco{
     private acmMontoSalida: number = 0;
     private acmMontoEntrada: number = 0;
@@ -39,29 +37,28 @@ export default class Cl_mBanco{
         return lista;
     }
     procesarTransacciones(t:Cl_mTransaccion) {
-    this.cntTransacciones++
-    if (t instanceof Cl_mSalida) { 
-        this.acmMontoSalida += t.montoF();    
-        }
-    if (t instanceof Cl_mEntrada) { 
-        this.acmMontoEntrada += t.montoF();    
+        this.cntTransacciones++;
+/*        if (t.monto > 0) {
+            this.acmMontoEntrada += t.monto;
+        } else {
+            this.acmMontoSalida += t.monto;*/
         }
     }
     //Metodos de retorno
-    public montoTotalTSalidas(): number {
+/*    public montoTotalTSalidas(): number {
         return this.acmMontoSalida;
     }
     public montoTotalTEntradas(): number {
         return this.acmMontoEntrada;
-    }  
+    }  */
     public cantidadTransacciones(): number {
         return this.cntTransacciones;
     }
-    public resultadoFinanciero(): number | string {
+/*    public resultadoFinanciero(): number | string {
         if (this.montoTotalTEntradas() > this.montoTotalTSalidas()) {
             return "Utilidad de" + (this.montoTotalTEntradas() - this.montoTotalTSalidas());
         } else {
             return "Perdida de" + (this.montoTotalTSalidas() - this.montoTotalTEntradas());
         }
     }
-}
+}*/

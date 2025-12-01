@@ -4,6 +4,7 @@ export interface iTransaccion {
     referencia: string;
     fecha: number;
     categoria: string;
+    tipoTransaccion: number;
 }
 export default class Cl_mTransaccion{
     protected _descripcion: string ="";
@@ -11,11 +12,14 @@ export default class Cl_mTransaccion{
     protected _referencia: string ="";
     protected _categoria: string ="";
     protected _fecha: number = 0;
-    constructor({descripcion, monto, referencia, categoria, fecha}: {descripcion: string, monto: number, referencia: string, categoria: string, fecha: number}){
+    protected _tipoTransaccion: number = 0;
+    constructor({descripcion, monto, referencia, categoria, fecha, tipoTransaccion}: {descripcion: string, monto: number, referencia: string, categoria: string, fecha: number, tipoTransaccion: number}){
         this.descripcion = descripcion;
         this.monto = monto;
         this.referencia = referencia;
         this.categoria = categoria;
+        this.fecha = fecha;
+        this.tipoTransaccion = tipoTransaccion;
     }
     public set descripcion(d: string) {
         this._descripcion = d;
@@ -35,17 +39,23 @@ export default class Cl_mTransaccion{
     public get referencia(): string {
         return this._referencia.trim().toUpperCase();
     }
+    public set categoria(c: string) {
+        this._categoria = c;
+    }
+    public get categoria(): string {
+        return this._categoria;
+    }
     public set fecha(f: number) {
         this._fecha = f;
     }
     public get fecha(): number {
         return this._fecha;
     }
-    public set categoria(c: string) {
-        this._categoria = c;
+    public set tipoTransaccion(t: number) {
+        this._tipoTransaccion = t;
     }
-    public get categoria(): string {
-        return this._categoria;
+    public get tipoTransaccion(): number {
+        return this._tipoTransaccion;
     }
     //Metodo de validacion 
   public error(): string | false {
@@ -53,21 +63,13 @@ export default class Cl_mTransaccion{
     if (this._referencia.length === 0) return "La referencia no puede estar vacía.";
     if (this._referencia.length !== 4) return "La referencia debe tener al menos 4 digitos.";
     // Validacion de monto
-    if (this._monto <= 0) return "El monto debe ser mayor a 0.";
+    if (this._monto < 0) return "El monto debe ser mayor a 0.";
     if (this._monto === 0) return "El monto no puede estar vacio.";
     // Validacion de descripcion
     if (this._descripcion.length === 0) return "La descripcion no puede estar vacía.";
     if (this._descripcion.length > 15) return "La descripcion no debe tener más de 15 caracteres.";
     return false;
   }
-
-  //Metodos de clases derivadas
-    public comision(): number {
-        return 0;
-    }
-    public montoF() : number {
-        return this._monto + this.comision();
-    }
   toJSON(){
     return {
     descripcion: this._descripcion,
@@ -75,9 +77,8 @@ export default class Cl_mTransaccion{
     referencia: this._referencia,
     fecha: this._fecha,
     categoria: this._categoria,
+    tipoTransaccion: this._tipoTransaccion,
     error: this.error(),
-    comision: this.comision(),
-    montoF: this.montoF(),
     }
   }
 }
