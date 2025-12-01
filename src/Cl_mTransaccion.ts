@@ -2,8 +2,8 @@ export interface iTransaccion {
     descripcion: string;
     monto: number;
     referencia: string;
-    fecha: number;
     categoria: string;
+    fecha: number;
     tipoTransaccion: number;
 }
 export default class Cl_mTransaccion{
@@ -83,8 +83,8 @@ export default class Cl_mTransaccion{
     descripcion: this._descripcion,
     monto: this._monto,
     referencia: this._referencia,
-    fecha: this._fecha,
     categoria: this._categoria,
+    fecha: this._fecha,
     tipoTransaccion: this._tipoTransaccion,
     error: this.error(),
     transaccion: this.transaccion(),

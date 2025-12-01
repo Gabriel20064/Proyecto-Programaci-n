@@ -6,142 +6,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Título de la página y de la vista previa (WhatsApp) -->
     <title>HyperLinkBlocked</title>
-    <meta property="og:title" content="Conciliación Bancaria" />
+    <meta property="og:title" content="Conciliacion Bancaria" />
     <!-- Descripción corta y atractiva -->
-    <meta property="og:description" content="Registro de movimientos y transacciones bancarias" />
+    <meta property="og:description" content="Registro de transacciones" />
     <!-- Imagen que se muestra en WhatsApp (logo o imagen destacada, 800x418 px recomendado) -->
-    <meta property="og:image" content="https://hyperlinkblocked-conciliacion-bancaria.vercel.app/resource/Logo.png" />
+    <meta property="og:image" content="https://hyperlinkblocked-institutoeducativo.vercel.app/resource/Logo.png" />
     <!-- URL del proyecto -->
-    <meta property="og:url" content="https://hyperlinkblocked-conciliacion-bancaria.vercel.app" />
+    <meta property="og:url" content="https://hyperlinkblocked-institutoeducativo.vercel.app" />
     <!-- Tipo de contenido -->
     <meta property="og:type" content="website" />
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="./resource/Favicon.png">
     <!-- Estilos CSS -->
-    <link rel="stylesheet" href="styles.css?v251103-1750" />
+    <link rel="stylesheet" href="style.css?v251103-1750" />
+    
 </head>
 
 <body>
-    <h3 style="width: 320px;">CONCILIACION BANCARIA</h3>
-    <section id="Banco">
+    <h2>CONCILIACION BANCARIA</h2>
+    <section id="instituto">
         <div>
-            <h3>Banco</h3>
-            <button id="ucla_btMaterias">Transaccion de Entrada</button>
-            <button id="ucla_btEstudiantes">Transaccion de Salida</button>
-            <button id="ucla_btReportes">Total de Transacciones Realizadas</button>
+            <button id="banco_btAgregarTransaccion">Agregar Transaccion</button>
         </div>
- 
     </section>
-    <section id="listaEntradas">
-        <h3>Transacciones de Entrada</h3>
+    <section style="font-size: 13px;">
+        <h3 style="font-size: 14px;">TRANSACCIONES REGISTRADAS</h3>
         <table>
             <thead>
                 <tr>
-                    <th style="width: 100px;">Descripcion</th>
+                    <th style="width: 200px;">Descripcion</th>
                     <th style="width: 80px;">Monto</th>
-                    <th style="width: 100px;">Referencia</th>
-                    <th style="width: 50px;">Fecha</th>
-                    <th style="width: 50px;">Categoria</th>
+                    <th style="width: 80px;">Referencia</th>
+                    <th style="width: 80px;">Categoria</th>
+                    <th style="width: 80px;">Fecha</th>
+                    <th style="width: 80px;">tipoTransaccion</th>
                 </tr>
             </thead>
-            <tbody id="materias_divMaterias"> </tbody>
+            <tbody id="banco_divTransaccionesRegistradas"> </tbody>
         </table>
-        <tr style="width: 50px;">Dinero total entrante: 0</style></tr>
-        <button id="materias_btAgregar">Agregar</button>
-        <button id="materias_btVolver">Volver</button>
-    </section>
-    <section id="Entrada">
-        <h3><span id="materia_lblOpcion"></span> Entrada</h3>
-        <div class="ficha">
-            <label>Descripcion:
-                <input type="text" id="materia_inCodigo"></input>
-            </label>
-            <label>Monto:
-                <input type="text" id="materia_inNombre" style="width: 100px;"></input>
-            </label>
-            <label>Referencia:
-                <input type="text" id="materia_inCreditos" style="width: 150px;"></input>
-            </label>
-            <label>Fecha:
-                <input type="date" id="materia_inFecha" style="width: 150px;"></input>
-            </label>
-            <label>Categoria:
-                <input type="text" id="materia_inCategoria" style="width: 150px;"></input>
-            </label>
-        </div>
-        <div>
-            <button id="materia_btAceptar">Aceptar</button>
-            <button id="materia_btCancelar">Cancelar</button>
-        </div>
-    </section>
-    <section id="listaSalidas">
-        <h3>Transacciones de Salida</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th style="width: 50px;">Descripcion</th>
-                    <th style="width: 150px;">Monto</th>
-                    <th style="width: 50px;">Referencia</th>
-                    <th style="width: 50px;">Fecha</th>
-                    <th style="width: 50px;">Categoria</th>
-                </tr>
-            </thead>
-            <tbody id="estudiantes_divEstudiantes"> </tbody>
-        </table>
-        <tr style="width: 50px;">Dinero total saliente: 0</style></tr> <br>
-        <tr style="width: 50px;">Monto total de comisiones:  0</style></tr> <br>
-        <tr style="width: 50px;">Total de transacciones realizadas: 0</style></tr>
-        <button id="estudiantes_btAgregar">Agregar</button>
-        <button id="estudiantes_btVolver">Volver</button>
-    </section>
-    <section id="Salida">
-        <h3>Salida</h3>
-        <div class="ficha">
-            <label>Descripcion:
-                <input type="text" id="estudiante_inCodigo"></input>
-            </label>
-            <label>Monto:
-                <input type="text" id="estudiante_inCodigo" style="width: 200px"></input>
-            </label>
-               <label> <input type="checkbox" id="cbox1" value="first_checkbox" /> Transferencia <input type="checkbox" id="cbox2" value="second_checkbox" /> Efectivo</label>
-            <label>Referencia:
-                <input type="text" id="estudiante_inNombre" style="width: 150px;"></input>
-            </label>
-            <label>Fecha:
-                <input type="date" id="estudiante_inCreditos" style="width: 150px;"></input>
-            </label>
-                        <label>Categoria:
-                <input type="text" id="materia_inCategoria" style="width: 150px;"></input>
-            </label>
-            <div>
-        <button id="estudiante_btAgregar">Aceptar</button>
-        <button id="estudiante_btVolver">Cancelar</button>
-    </div>
-   
-    </section> 
-    
-    <section id="reporteGeneral">
-        <h3>Transacciones Bancarias</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th style="width: 100px;">Descripcion</th>
-                    <th style="width: 80px;">Monto</th>
-                    <th style="width: 100px;">Referencia</th>
-                    <th style="width: 50px;">Fecha</th>
-                    <th style="width: 50px;">Categoria</th>
-                </tr>
-            </thead>
-            <tbody id="reportes_divReportes"> </tbody>
-        </table>
-        <h4 style="margin-top: 10px;">Monto Total de Transacciones de Salida: <span id="ucla_lblMaterias">0</span></h4>
-        <h4>Monto Total de Transacciones de Entrada: <span id="ucla_lblEstudiantes">0</span></h4>
-        <h4>Total de Transacciones Realizadas en el mes: <span id="ucla_lblReportes">0</span></h4>
-        <h4>Resultado Financiero: <span id="ucla_lblReportes">Utilidad / Perdida</span></h4>
     </section>
     <script type="module">
-        import Cl_index from "./dist/Cl_index.js";
-        new Cl_index()
+        import main from "./dist/Main.js";
+        new main();
     </script>
 </body>
 
