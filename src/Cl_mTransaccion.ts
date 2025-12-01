@@ -70,6 +70,14 @@ export default class Cl_mTransaccion{
     if (this._descripcion.length > 15) return "La descripcion no debe tener más de 15 caracteres.";
     return false;
   }
+  //tipo=1 abono - tipo=2 cargo
+  public transaccion(): number {
+    if (this._tipoTransaccion === 1) {
+        return this._monto;
+    } else {
+        return -this._monto;
+    }
+  }
   toJSON(){
     return {
     descripcion: this._descripcion,
@@ -79,6 +87,7 @@ export default class Cl_mTransaccion{
     categoria: this._categoria,
     tipoTransaccion: this._tipoTransaccion,
     error: this.error(),
+    transaccion: this.transaccion(),
     }
   }
 }
