@@ -40,12 +40,18 @@ export default class Cl_vBanco extends Cl_vGeneral {
     if (!referencia) return;
     let categoria = prompt("Ingrese la categoría de la transacción");
     if (!categoria) return;
+    let fecha = Date.now();
+    let tipoTransaccion = prompt("Ingrese el tipo de transacción (1 para Abono, 2 para Cargo)");
+    if (!tipoTransaccion || (tipoTransaccion !== "1" && tipoTransaccion !== "2")) return;
+
     this.controlador!.agregarTransaccion({
       transaccionData: {
         descripcion: descripcion,
-        monto: monto,
+        monto: Number(monto),
         referencia: referencia,
-        categoria: categoria
+        categoria: categoria,
+        fecha: fecha,
+        tipoTransaccion: Number(tipoTransaccion),
       },
       callback: (error: string | false) => {
         if (error) alert(error);
