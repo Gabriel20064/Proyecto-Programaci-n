@@ -1,7 +1,5 @@
 
 import Cl_mTransaccion, { iTransaccion } from "./Cl_mTransaccion.js";
-import Cl_mSalida from "./Cl_mSalida.js";
-import Cl_mEntrada from "./Cl_mEntrada.js";
 import Cl_mBanco from "./Cl_mBanco.js";
 import Cl_vBanco from "./Cl_vBanco.js";
 import { opcionFicha } from "./tools/core.tools";
