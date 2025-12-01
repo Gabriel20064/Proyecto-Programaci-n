@@ -1,4 +1,4 @@
-import Cl_controlador from "../Cl_controlador.js";
+import Cl_controlador from "../Cl_Controlador.js";
 declare global {
   interface HTMLSelectElement {
     refill: (elementsSource: any[] | undefined) => void;
