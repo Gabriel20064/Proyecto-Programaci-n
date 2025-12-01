@@ -13,7 +13,7 @@ export default class Cl_mTransaccion{
     protected _categoria: string ="";
     protected _fecha: number = 0;
     protected _tipoTransaccion: number = 0;
-    constructor({descripcion, monto, referencia, categoria, fecha, tipoTransaccion}: iTransaccion){
+    constructor({descripcion, monto, referencia, categoria, fecha, tipoTransaccion}: {descripcion: string, monto: number, referencia: string, categoria: string, fecha: number, tipoTransaccion: number}){
         this.descripcion = descripcion;
         this.monto = monto;
         this.referencia = referencia;
@@ -28,7 +28,7 @@ export default class Cl_mTransaccion{
         return this._descripcion;
     }
     public set monto(m: number) {
-        this._monto = m;
+        this._monto = +m;
     }        
     public get monto(): number {
         return this._monto;
@@ -46,7 +46,7 @@ export default class Cl_mTransaccion{
         return this._categoria;
     }
     public set fecha(f: number) {
-        this._fecha = f;
+        this._fecha = +f;
     }
     public get fecha(): number {
         return this._fecha;
