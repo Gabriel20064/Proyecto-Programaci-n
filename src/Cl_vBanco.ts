@@ -23,7 +23,7 @@ export default class Cl_vBanco extends Cl_vGeneral {
     banco.forEach((transaccion: iTransaccion) => {
       this.divTransaccionesRegistradas.innerHTML += `<tr>
             <td>${transaccion.descripcion}</td>
-            <td>${transaccion.monto}</td>
+            <td>${transaccion.monto} Bs.</td>
             <td>${transaccion.referencia}</td>
             <td>${transaccion.categoria}</td>
             <td>${transaccion.fecha}</td>
@@ -45,7 +45,8 @@ export default class Cl_vBanco extends Cl_vGeneral {
     if (!tipoTransaccion || (tipoTransaccion !== "1" && tipoTransaccion !== "2")) return;
 
     this.controlador!.agregarTransaccion({
-      transaccionData: {
+
+        transaccionData: {
         descripcion: descripcion,
         monto: Number(monto),
         referencia: referencia,

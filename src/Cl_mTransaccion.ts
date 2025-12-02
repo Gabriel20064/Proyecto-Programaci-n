@@ -86,8 +86,6 @@ export default class Cl_mTransaccion{
     categoria: this._categoria,
     fecha: this._fecha,
     tipoTransaccion: this._tipoTransaccion,
-    error: this.error(),
-    transaccion: this.transaccion(),
     }
   }
 }
