@@ -28,7 +28,7 @@ export default class Cl_mTransaccion{
         return this._descripcion;
     }
     public set monto(m: number) {
-        this._monto = +m;
+        this._monto = m;
     }        
     public get monto(): number {
         return this._monto;

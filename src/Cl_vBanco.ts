@@ -4,7 +4,7 @@ export default class Cl_vBanco extends Cl_vGeneral {
   private btAgregarTransaccion: HTMLButtonElement;
   private divTransaccionesRegistradas: HTMLDivElement;
   constructor() {
-    super({ formName: "banco" });
+    super({ formName: "main" });
     this.btAgregarTransaccion = this.crearHTMLButtonElement("btAgregarTransaccion", {
       onclick: () => this.agregarTransaccion(),
     });
@@ -45,7 +45,6 @@ export default class Cl_vBanco extends Cl_vGeneral {
     if (!tipoTransaccion || (tipoTransaccion !== "1" && tipoTransaccion !== "2")) return;
 
     this.controlador!.agregarTransaccion({
-
         transaccionData: {
         descripcion: descripcion,
         monto: Number(monto),

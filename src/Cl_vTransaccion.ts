@@ -1,0 +1,131 @@
+import Cl_vGeneral, { tHTMLElement} from "./tools/Cl_vGeneral";
+import Cl_mTransaccion from "./Cl_mTransaccion";
+import { opcionFicha } from "./tools/core.tools";
+
+export default class Cl_vTransaccion extends Cl_vGeneral {
+    private inDescripcion: HTMLInputElement;
+    private inMonto: HTMLInputElement;
+    private inReferencia: HTMLInputElement;
+    private inCategoria: HTMLInputElement;
+    private inFecha: HTMLInputElement;
+    private inTipoTransaccion: HTMLInputElement;
+    private lblOpcion: HTMLLabelElement;
+    private btAceptar: HTMLButtonElement;
+    private btCancelar: HTMLButtonElement;
+    private opcion: opcionFicha | null;
+    private transaccion: Cl_mTransaccion;
+    constructor() {
+        super({ formName: "transaccion" });
+        this.opcion = null;
+        this.transaccion = new Cl_mTransaccion();
+        this.lblOpcion = this.crearHTMLLabelElement("lblOpcion", {
+            refresh: () => 
+            (this.lblOpcion.innerHTML = 
+              this.opcion === opcionFicha.add ? "Agregar" :  "Editar"),
+        });
+        this.inDescripcion = this.crearHTMLInputElement("inDescripcion", {
+            oninput: () => {
+                this.inDescripcion.value = this.transaccion.descripcion = this.inDescripcion.value;
+                this.refresh();
+            },
+        refresh: () => 
+            (this.inDescripcion.style.borderColor = this.transaccion.descripcionOK ? "" : "red"),
+        });
+        this.inDescripcion.disabled = this.opcion === opcionFicha.edit;
+        this.inMonto = this.crearHTMLInputElement("inMonto", {
+            oninput: () => {
+                this.inMonto.value = this.transaccion.monto = this.inMonto.value;
+                this.refresh();
+            },
+            refresh: () => 
+            (this.inMonto.style.borderColor = this.transaccion.montoOK ? "" : "red"),
+        });
+        this.inReferencia = this.crearHTMLInputElement("inReferencia", {
+            oninput: () => {
+                this.inReferencia.value = this.transaccion.referencia = this.inReferencia.value;
+                this.refresh();
+            },
+            refresh: () => 
+            (this.inReferencia.style.borderColor = this.transaccion.referenciaOK ? "" : "red"),
+        });
+        this.inCategoria = this.crearHTMLInputElement("inCategoria", {
+            oninput: () => {
+                this.inCategoria.value = this.transaccion.categoria = this.inCategoria.value;
+                this.refresh();
+            },
+            refresh: () => 
+            (this.inCategoria.style.borderColor = this.transaccion.categoriaOK ? "" : "red"),
+        });
+        this.inFecha = this.crearHTMLInputElement("inFecha", {
+            oninput: () => {
+                this.inFecha.value = this.transaccion.fecha = this.inFecha.value;
+                this.refresh();
+            },
+            refresh: () => 
+            (this.inFecha.style.borderColor = this.transaccion.fechaOK ? "" : "red"),
+        });
+        this.inTipoTransaccion = this.crearHTMLInputElement("inTipoTransaccion", {
+            oninput: () => {
+                this.inTipoTransaccion.value = this.transaccion.tipoTransaccion = this.inTipoTransaccion.value;
+                this.refresh();
+            },
+            refresh: () => 
+            (this.inTipoTransaccion.style.borderColor = this.transaccion.tipoTransaccionOK ? "" : "red"),
+        });
+        this.btAceptar = this.crearHTMLButtonElement("btAceptar", {
+            onclick: () => this.aceptar(),
+            refresh: () => {
+                this.btAceptar.disabled = this.transaccion.transaccionOK !== true;
+            },
+        });
+        this.btCancelar = this.crearHTMLButtonElement("btCancelar", {
+            onclick: () => this.controlador!.activarVista({ vista: "transaciones" }),
+        });
+    }
+    aceptar() {
+        if (this.opcion === opcionFicha.add)
+            this.controlador!.addTransaccion({
+         dtTransaccion: this.transaccion.toJSON(),
+        callback: (error) => {
+            if (!error) this.controlador!.activarVista({ vista: "transaciones" });
+            else alert(`Error: ${error}`);
+         }
+        });
+        else{
+          this.controlador!.editTransacion({
+            dtTransaccion: this.transaccion.toJSON(),
+        callback: (error) => {
+          if (!error) this.controlador!.activarVista({ vista: "transaciones" });
+          else alert(`Error: ${error}`);
+        },
+      });
+    }
+  }   
+  show(
+    {
+        ver,
+        transaccion,
+        opcion,
+    }: {
+        ver: boolean;
+        transaccion?: Cl_mTransaccion;
+        opcion?: opcionFicha;
+    } = {
+        ver: false,
+        transaccion: new Cl_mTransaccion(),
+    }
+  ): void {
+    super.show({ ver });
+    if (opcion) {
+        this.opcion = opcion;
+        this.transaccion.id = transaccion!.id;
+        this.transaccion.descripcion = transaccion!.descripcion;
+        this.transaccion.monto = transaccion!.monto;
+        this.transaccion.referencia = transaccion!.referencia;
+        this.transaccion.categoria = transaccion!.categoria;
+        this.transaccion.fecha = transaccion!.fecha;
+        this.transaccion.tipotransaccion = transaccion!.tipotransaccion;
+        this.refresh();
+    }
+  }
+}
