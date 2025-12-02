@@ -1,17 +1,17 @@
 export default class Cl_mTransaccion {
     constructor({ descripcion, monto, referencia, categoria, fecha, tipoTransaccion }) {
+        this._tipoTransaccion = 0;
+        this._fecha = 0;
         this._descripcion = "";
-        this._monto = 0;
         this._referencia = "";
         this._categoria = "";
-        this._fecha = 0;
-        this._tipoTransaccion = 0;
+        this._monto = 0;
+        this.tipoTransaccion = tipoTransaccion;
+        this.fecha = fecha;
         this.descripcion = descripcion;
-        this.monto = monto;
         this.referencia = referencia;
         this.categoria = categoria;
-        this.fecha = fecha;
-        this.tipoTransaccion = tipoTransaccion;
+        this.monto = monto;
     }
     set descripcion(d) {
         this._descripcion = d;
@@ -64,12 +64,12 @@ export default class Cl_mTransaccion {
         // Validacion de descripcion
         if (this._descripcion.length === 0)
             return "La descripcion no puede estar vacía.";
-        if (this._descripcion.length > 15)
+        if (this._descripcion.length > 20)
             return "La descripcion no debe tener más de 15 caracteres.";
         return false;
     }
     //tipo=1 abono - tipo=2 cargo
-    transaccion() {
+    montoTransaccion() {
         if (this._tipoTransaccion === 1) {
             return this._monto;
         }
@@ -79,12 +79,12 @@ export default class Cl_mTransaccion {
     }
     toJSON() {
         return {
+            tipoTransaccion: this._tipoTransaccion,
+            fecha: this._fecha,
             descripcion: this._descripcion,
-            monto: this._monto,
             referencia: this._referencia,
             categoria: this._categoria,
-            fecha: this._fecha,
-            tipoTransaccion: this._tipoTransaccion,
+            monto: this.monto,
         };
     }
 }
