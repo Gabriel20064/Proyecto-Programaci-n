@@ -1,25 +1,25 @@
 export interface iTransaccion {
-    tipoTransaccion: number;
-    fecha: string;
     descripcion: string;
+    monto: number;
     referencia: string;
     categoria: number;
-    monto: number;
+    fecha: string;
+    tipoTransaccion: number;
 }
 export default class Cl_mTransaccion{
-    protected _tipoTransaccion: number = 0;
-    protected _fecha: string = "";
     protected _descripcion: string ="";
+    protected _monto: number =0 ;
     protected _referencia: string ="";
     protected _categoria: number =0 ;
-    protected _monto: number =0 ;
+    protected _fecha: string = "";
+    protected _tipoTransaccion: number = 0;
     constructor({descripcion, monto, referencia, categoria, fecha, tipoTransaccion}: {descripcion: string, monto: number, referencia: string, categoria: number, fecha: string, tipoTransaccion: number}){
-        this.tipoTransaccion = tipoTransaccion;
-        this.fecha = fecha;
         this.descripcion = descripcion;
+        this.monto = monto;
         this.referencia = referencia;
         this.categoria = categoria;
-        this.monto = monto;
+        this.fecha = fecha;
+        this.tipoTransaccion = tipoTransaccion;
     }
     public set descripcion(d: string) {
         this._descripcion = d;
@@ -57,6 +57,33 @@ export default class Cl_mTransaccion{
     public get tipoTransaccion(): number {
         return this._tipoTransaccion;
     }
+  get descripcionOk(): boolean {
+    return this.descripcion.length === 4;
+  }
+  get montoOk(): boolean {
+    return this.monto > 0;
+  }
+  get referenciaOk(): boolean {
+    return this.referencia.length === 4;
+  }
+  get categoriaOk(): boolean {{}
+    return this.categoria > 0;
+  }
+  get fechaOk(): boolean {
+    return this.fecha.length === 4;
+  }
+  get tipoTransaccionOk(): boolean {{}
+    return this.tipoTransaccion > 0;
+  }
+  get transaccionOk(): string | true {
+    if (!this.descripcionOk) return "descripcion";
+    if (!this.montoOk) return "monto";
+    if (!this.referenciaOk) return "referencia";
+    if (!this.categoriaOk) return "categoria";
+    if (!this.fechaOk) return "fecha";
+    if (!this.tipoTransaccionOk) return "tipoTransaccion";
+    return true;
+  }
     //Metodo de validacion 
   public error(): string | false {
     // Validacion de Referencia

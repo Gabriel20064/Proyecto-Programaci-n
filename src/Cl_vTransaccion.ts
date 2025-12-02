@@ -29,7 +29,7 @@ export default class Cl_vTransaccion extends Cl_vGeneral {
                 this.refresh();
             },
         refresh: () => 
-            (this.inDescripcion.style.borderColor = this.transaccion.descripcionOK ? "" : "red"),
+            (this.inDescripcion.style.borderColor = this.transaccion.descripcionOk ? "" : "red"),
         });
         this.inDescripcion.disabled = this.opcion === opcionFicha.edit;
         this.inMonto = this.crearHTMLInputElement("inMonto", {
@@ -38,7 +38,7 @@ export default class Cl_vTransaccion extends Cl_vGeneral {
                 this.refresh();
             },
             refresh: () => 
-            (this.inMonto.style.borderColor = this.transaccion.montoOK ? "" : "red"),
+            (this.inMonto.style.borderColor = this.transaccion.montoOk ? "" : "red"),
         });
         this.inReferencia = this.crearHTMLInputElement("inReferencia", {
             oninput: () => {
@@ -46,7 +46,7 @@ export default class Cl_vTransaccion extends Cl_vGeneral {
                 this.refresh();
             },
             refresh: () => 
-            (this.inReferencia.style.borderColor = this.transaccion.referenciaOK ? "" : "red"),
+            (this.inReferencia.style.borderColor = this.transaccion.referenciaOk ? "" : "red"),
         });
         this.inCategoria = this.crearHTMLInputElement("inCategoria", {
             oninput: () => {
@@ -54,7 +54,7 @@ export default class Cl_vTransaccion extends Cl_vGeneral {
                 this.refresh();
             },
             refresh: () => 
-            (this.inCategoria.style.borderColor = this.transaccion.categoriaOK ? "" : "red"),
+            (this.inCategoria.style.borderColor = this.transaccion.categoriaOk ? "" : "red"),
         });
         this.inFecha = this.crearHTMLInputElement("inFecha", {
             oninput: () => {
@@ -62,7 +62,7 @@ export default class Cl_vTransaccion extends Cl_vGeneral {
                 this.refresh();
             },
             refresh: () => 
-            (this.inFecha.style.borderColor = this.transaccion.fechaOK ? "" : "red"),
+            (this.inFecha.style.borderColor = this.transaccion.fechaOk ? "" : "red"),
         });
         this.inTipoTransaccion = this.crearHTMLInputElement("inTipoTransaccion", {
             oninput: () => {
@@ -70,12 +70,12 @@ export default class Cl_vTransaccion extends Cl_vGeneral {
                 this.refresh();
             },
             refresh: () => 
-            (this.inTipoTransaccion.style.borderColor = this.transaccion.tipoTransaccionOK ? "" : "red"),
+            (this.inTipoTransaccion.style.borderColor = this.transaccion.tipoTransaccionOk ? "" : "red"),
         });
         this.btAceptar = this.crearHTMLButtonElement("btAceptar", {
             onclick: () => this.aceptar(),
             refresh: () => {
-                this.btAceptar.disabled = this.transaccion.transaccionOK !== true;
+                this.btAceptar.disabled = this.transaccion.transaccionOk !== true;
             },
         });
         this.btCancelar = this.crearHTMLButtonElement("btCancelar", {
@@ -118,13 +118,12 @@ export default class Cl_vTransaccion extends Cl_vGeneral {
     super.show({ ver });
     if (opcion) {
         this.opcion = opcion;
-        this.transaccion.id = transaccion!.id;
         this.transaccion.descripcion = transaccion!.descripcion;
         this.transaccion.monto = transaccion!.monto;
         this.transaccion.referencia = transaccion!.referencia;
         this.transaccion.categoria = transaccion!.categoria;
         this.transaccion.fecha = transaccion!.fecha;
-        this.transaccion.tipotransaccion = transaccion!.tipotransaccion;
+        this.transaccion.tipoTransaccion = transaccion!.tipoTransaccion;
         this.refresh();
     }
   }
