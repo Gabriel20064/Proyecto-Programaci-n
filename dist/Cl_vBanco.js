@@ -21,10 +21,10 @@ export default class Cl_vBanco extends Cl_vGeneral {
       <td class="colNumber">${transaccion.fecha}</td>
       <td>${transaccion.descripcion}</td>
       <td class="colNumber">${transaccion.referencia}</td>
-      <td>${transaccion.categoria}</td>
+      <td>${transaccion.tipoTransaccion === 2 ? "Ingreso" : transaccion.categoria === 1 ? "Salud" : transaccion.categoria === 2 ? "Educación" : transaccion.categoria === 3 ? "Alimentación" : transaccion.categoria === 4 ? "Servicios" : "Otro"}</td>
       <td class="spanInfo">${transaccion.tipoTransaccion === 1 ? "Cargo" : "Abono"}</td>
-      <td class="negative-amount">${transaccion.tipoTransaccion === 1 ? "- " + transaccion.monto + " Bs." : "-"} </td>
-      <td class="positive-amount">${transaccion.tipoTransaccion === 2 ? transaccion.monto + " Bs." : "-"} </td>
+      <td class="negative-amount">${transaccion.tipoTransaccion === 1 ? "-" + transaccion.monto + " Bs." : "---"} </td>
+      <td class="positive-amount">${transaccion.tipoTransaccion === 2 ? transaccion.monto + " Bs." : "---"} </td>
 
         </tr>`;
         });
@@ -33,7 +33,9 @@ export default class Cl_vBanco extends Cl_vGeneral {
         let tipoTransaccion = prompt("Ingrese el tipo de transacción (1 para Cargo, 2 para Abono)");
         if (!tipoTransaccion || (tipoTransaccion !== "1" && tipoTransaccion !== "2"))
             return;
-        let fecha = Date.now();
+        let fecha = prompt("Ingrese la fecha de la transacción");
+        if (!fecha)
+            return;
         let descripcion = prompt("Ingrese la descripción de la transacción");
         if (!descripcion)
             return;
@@ -51,7 +53,7 @@ export default class Cl_vBanco extends Cl_vGeneral {
                 fecha: fecha,
                 descripcion: descripcion,
                 referencia: referencia,
-                categoria: categoria,
+                categoria: Number(categoria),
                 monto: Number(monto),
                 tipoTransaccion: Number(tipoTransaccion),
             },

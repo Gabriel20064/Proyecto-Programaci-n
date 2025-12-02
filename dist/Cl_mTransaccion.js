@@ -1,10 +1,10 @@
 export default class Cl_mTransaccion {
     constructor({ descripcion, monto, referencia, categoria, fecha, tipoTransaccion }) {
         this._tipoTransaccion = 0;
-        this._fecha = 0;
+        this._fecha = "";
         this._descripcion = "";
         this._referencia = "";
-        this._categoria = "";
+        this._categoria = 0;
         this._monto = 0;
         this.tipoTransaccion = tipoTransaccion;
         this.fecha = fecha;
@@ -38,7 +38,7 @@ export default class Cl_mTransaccion {
         return this._categoria;
     }
     set fecha(f) {
-        this._fecha = +f;
+        this._fecha = f;
     }
     get fecha() {
         return this._fecha;

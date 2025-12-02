@@ -1,19 +1,19 @@
 export interface iTransaccion {
     tipoTransaccion: number;
-    fecha: number;
+    fecha: string;
     descripcion: string;
     referencia: string;
-    categoria: string;
+    categoria: number;
     monto: number;
 }
 export default class Cl_mTransaccion{
     protected _tipoTransaccion: number = 0;
-    protected _fecha: number = 0;
+    protected _fecha: string = "";
     protected _descripcion: string ="";
     protected _referencia: string ="";
-    protected _categoria: string ="";
+    protected _categoria: number =0 ;
     protected _monto: number =0 ;
-    constructor({descripcion, monto, referencia, categoria, fecha, tipoTransaccion}: {descripcion: string, monto: number, referencia: string, categoria: string, fecha: number, tipoTransaccion: number}){
+    constructor({descripcion, monto, referencia, categoria, fecha, tipoTransaccion}: {descripcion: string, monto: number, referencia: string, categoria: number, fecha: string, tipoTransaccion: number}){
         this.tipoTransaccion = tipoTransaccion;
         this.fecha = fecha;
         this.descripcion = descripcion;
@@ -39,16 +39,16 @@ export default class Cl_mTransaccion{
     public get referencia(): string {
         return this._referencia.trim().toUpperCase();
     }
-    public set categoria(c: string) {
+    public set categoria(c: number) {
         this._categoria = c;
     }
-    public get categoria(): string {
+    public get categoria(): number {
         return this._categoria;
     }
-    public set fecha(f: number) {
-        this._fecha = +f;
+    public set fecha(f: string) {
+        this._fecha = f;
     }
-    public get fecha(): number {
+    public get fecha(): string {
         return this._fecha;
     }
     public set tipoTransaccion(t: number) {
