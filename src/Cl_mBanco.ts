@@ -38,14 +38,14 @@ export default class Cl_mBanco{
     }
 
 
-    
+
     //Metodos
     procesarTransacciones(t:Cl_mTransaccion) {
         this.cntTransacciones++;
-        if (t.montoTransaccion() > 0) {
-            this.acmMontoEntrada += t.montoTransaccion();
-        } else {
+        if (t.tipoTransaccion === 1) {
             this.acmMontoSalida += t.montoTransaccion();
+        } else {
+            this.acmMontoEntrada += t.montoTransaccion();
         }
     }
     public cantidadTransacciones(): number {

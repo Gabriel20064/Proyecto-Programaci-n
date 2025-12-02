@@ -4,7 +4,7 @@ export default class Cl_vBanco extends Cl_vGeneral {
   private btAgregarTransaccion: HTMLButtonElement;
   private divTransaccionesRegistradas: HTMLDivElement;
   constructor() {
-    super({ formName: "banco" });
+    super({ formName: "main" });
     this.btAgregarTransaccion = this.crearHTMLButtonElement("btAgregarTransaccion", {
       onclick: () => this.agregarTransaccion(),
     });
@@ -27,10 +27,9 @@ export default class Cl_vBanco extends Cl_vGeneral {
       <td class="colNumber">${transaccion.referencia}</td>
       <td>${transaccion.tipoTransaccion === 2 ? "Ingreso" : transaccion.categoria === 1 ? "Salud" : transaccion.categoria === 2 ? "Educación" : transaccion.categoria === 3 ? "Alimentación" : transaccion.categoria === 4 ? "Servicios" : "Otro"}</td>
       <td class="spanInfo">${transaccion.tipoTransaccion === 1 ? "Cargo" : "Abono"}</td>
-      <td class="negative-amount">${transaccion.tipoTransaccion === 1 ? "-" +transaccion.monto + " Bs.": "---"} </td>
-      <td class="positive-amount">${transaccion.tipoTransaccion === 2 ? transaccion.monto + " Bs.": "---"} </td>
-
-        </tr>`;
+      <td class="negative-amount">${transaccion.tipoTransaccion === 1 ? "-" +transaccion.monto.toFixed(2) + " Bs.": "---"} </td>
+      <td class="positive-amount">${transaccion.tipoTransaccion === 2 ? transaccion.monto.toFixed(2) + " Bs.": "---"} </td>
+    </tr>`;
     });
   }
   agregarTransaccion() {
@@ -48,7 +47,6 @@ export default class Cl_vBanco extends Cl_vGeneral {
     if (!monto) return;
 
     this.controlador!.agregarTransaccion({
-
         transaccionData: {
             fecha: fecha,
             descripcion: descripcion,
