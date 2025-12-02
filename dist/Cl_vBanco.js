@@ -22,7 +22,7 @@ export default class Cl_vBanco extends Cl_vGeneral {
       <td>${transaccion.descripcion}</td>
       <td class="colNumber">${transaccion.referencia}</td>
       <td>${transaccion.categoria}</td>
-      <td class="spanInfo">${transaccion.tipoTransaccion === 1 ? "Abono" : "Cargo"}</td>
+      <td class="spanInfo">${transaccion.tipoTransaccion === 1 ? "Cargo" : "Abono"}</td>
       <td class="negative-amount">${transaccion.tipoTransaccion === 1 ? "- " + transaccion.monto + " Bs." : "-"} </td>
       <td class="positive-amount">${transaccion.tipoTransaccion === 2 ? transaccion.monto + " Bs." : "-"} </td>
 
