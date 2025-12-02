@@ -5,7 +5,7 @@ export default class Cl_vBanco extends Cl_vGeneral {
   private btAddTransaccion: HTMLButtonElement;
   private divTransaccionesRegistradas: HTMLDivElement;
   constructor() {
-    super({ formName: "main" });
+    super({ formName: "banco" });
     this.btAgregarTransaccion = this.crearHTMLButtonElement("btAgregarTransaccion", {
       onclick: () => this.agregarTransaccion(),
     });
@@ -38,9 +38,17 @@ export default class Cl_vBanco extends Cl_vGeneral {
   }
   agregarTransaccion() {
     const modal = document.getElementById("addTransaccion") as HTMLElement;
-    modal.style.display = "block";
     const azu = document.getElementById("azufre") as HTMLElement;
+    const formB = document.getElementById("banco_btAgregarTransaccion") as HTMLFormElement;
+    if(formB.textContent==="Volver"){
+      azu.style.display = "block";
+      modal.style.display = "none";
+      formB.textContent = "Agregar Transacción";
+      return;
+    };
     azu.style.display = "none";
+    modal.style.display = "block";
+    formB.textContent = "Volver";
   }
   addTransaccion() {
     // Leer valores desde los inputs del formulario (ids dentro del modal/form)
@@ -66,6 +74,8 @@ export default class Cl_vBanco extends Cl_vGeneral {
     const monto = montoEl.value;
     const azu = document.getElementById("azufre") as HTMLElement;
     azu.style.display = "block";
+    const formB = document.getElementById("banco_btAgregarTransaccion") as HTMLFormElement;
+    formB.textContent = "Agregar Transacción";
     this.controlador!.agregarTransaccion({
       
         transaccionData: {

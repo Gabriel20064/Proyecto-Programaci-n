@@ -94,7 +94,7 @@ export default class Cl_mTransaccion{
     if (this._monto === 0) return "El monto no puede estar vacio.";
     // Validacion de descripcion
     if (this._descripcion.length === 0) return "La descripcion no puede estar vacía.";
-    if (this._descripcion.length > 20) return "La descripcion no debe tener más de 15 caracteres.";
+    if (this._descripcion.length > 30) return "La descripcion no debe tener más de 30 caracteres.";
     return false;
   }
   //tipo=1 abono - tipo=2 cargo

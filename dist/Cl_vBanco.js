@@ -33,9 +33,18 @@ export default class Cl_vBanco extends Cl_vGeneral {
     }
     agregarTransaccion() {
         const modal = document.getElementById("addTransaccion");
-        modal.style.display = "block";
         const azu = document.getElementById("azufre");
+        const formB = document.getElementById("banco_btAgregarTransaccion");
+        if (formB.textContent === "Volver") {
+            azu.style.display = "block";
+            modal.style.display = "none";
+            formB.textContent = "Agregar Transacción";
+            return;
+        }
+        ;
         azu.style.display = "none";
+        modal.style.display = "block";
+        formB.textContent = "Volver";
     }
     addTransaccion() {
         // Leer valores desde los inputs del formulario (ids dentro del modal/form)
@@ -65,6 +74,8 @@ export default class Cl_vBanco extends Cl_vGeneral {
         const monto = montoEl.value;
         const azu = document.getElementById("azufre");
         azu.style.display = "block";
+        const formB = document.getElementById("banco_btAgregarTransaccion");
+        formB.textContent = "Agregar Transacción";
         this.controlador.agregarTransaccion({
             transaccionData: {
                 fecha: fecha,
