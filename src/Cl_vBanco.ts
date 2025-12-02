@@ -2,11 +2,15 @@ import { iTransaccion } from "./Cl_mTransaccion.js";
 import Cl_vGeneral, { tHTMLElement } from "./tools/Cl_vGeneral.js";
 export default class Cl_vBanco extends Cl_vGeneral {
   private btAgregarTransaccion: HTMLButtonElement;
+  private btAddTransaccion: HTMLButtonElement;
   private divTransaccionesRegistradas: HTMLDivElement;
   constructor() {
     super({ formName: "main" });
     this.btAgregarTransaccion = this.crearHTMLButtonElement("btAgregarTransaccion", {
       onclick: () => this.agregarTransaccion(),
+    });
+    this.btAddTransaccion = this.crearHTMLButtonElement("addTB", {
+      onclick: () => this.addTransaccion(),
     });
     this.divTransaccionesRegistradas = this.crearHTMLElement(
       "divTransaccionesRegistradas",
@@ -33,20 +37,37 @@ export default class Cl_vBanco extends Cl_vGeneral {
     });
   }
   agregarTransaccion() {
-    let tipoTransaccion = prompt("Ingrese el tipo de transacción (1 para Cargo, 2 para Abono)");
-    if (!tipoTransaccion || (tipoTransaccion !== "1" && tipoTransaccion !== "2")) return;
-    let fecha = prompt("Ingrese la fecha de la transacción");
-    if (!fecha) return;
-    let descripcion = prompt("Ingrese la descripción de la transacción");
-    if (!descripcion) return;
-    let referencia = prompt("Ingrese la referencia de la transacción");
-    if (!referencia) return;
-    let categoria = prompt("Ingrese la categoría de la transacción");
-    if (!categoria) return;
-    let monto = prompt("Ingrese el monto de la transacción");
-    if (!monto) return;
+    const modal = document.getElementById("addTransaccion") as HTMLElement;
+    modal.style.display = "block";
+    const azu = document.getElementById("azufre") as HTMLElement;
+    azu.style.display = "none";
+  }
+  addTransaccion() {
+    // Leer valores desde los inputs del formulario (ids dentro del modal/form)
+    const fechaEl = document.getElementById("fecha") as HTMLInputElement | null;
+    const descripcionEl = document.getElementById("descripcion") as HTMLInputElement | null;
+    const referenciaEl = document.getElementById("referencia") as HTMLInputElement | null;
+    const categoriaEl = document.getElementById("categoria") as HTMLInputElement | null;
+    const tipoEl = document.getElementById("tipoTransaccion") as HTMLInputElement | null;
+    const montoEl = document.getElementById("monto") as HTMLInputElement | null;
 
+    if (!fechaEl || !descripcionEl || !referenciaEl || !categoriaEl || !tipoEl || !montoEl) return;
+
+    const tipoTransaccion = tipoEl.value;
+    if (!tipoTransaccion || (tipoTransaccion !== "1" && tipoTransaccion !== "2")) return;
+    const fecha = fechaEl.value;
+    if (!fecha) return;
+    const descripcion = descripcionEl.value;
+    if (!descripcion) return;
+    const referencia = referenciaEl.value;
+    if (!referencia) return;
+    const categoria = categoriaEl.value;
+    if (!categoria) return;
+    const monto = montoEl.value;
+    const azu = document.getElementById("azufre") as HTMLElement;
+    azu.style.display = "block";
     this.controlador!.agregarTransaccion({
+<<<<<<< Updated upstream
         transaccionData: {
             fecha: fecha,
             descripcion: descripcion,
@@ -54,9 +75,23 @@ export default class Cl_vBanco extends Cl_vGeneral {
             categoria: Number(categoria),
             monto: Number(monto),
             tipoTransaccion: Number(tipoTransaccion),
+=======
+      transaccionData: {
+        fecha: fecha,
+        descripcion: descripcion,
+        referencia: referencia,
+        categoria: Number(categoria),
+        monto: Number(monto),
+        tipoTransaccion: Number(tipoTransaccion),
+>>>>>>> Stashed changes
       },
       callback: (error: string | false) => {
         if (error) alert(error);
+        // cerrar modal y resetear form
+        const modal = document.getElementById("addTransaccion") as HTMLElement | null;
+        const form = document.getElementById("banco_formAgregarTransaccion") as HTMLFormElement | null;
+        if (form) form.reset();
+        if (modal) modal.style.display = "none";
         this.refresh();
       },
     });

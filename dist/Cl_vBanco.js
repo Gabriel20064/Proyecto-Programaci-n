@@ -5,6 +5,9 @@ export default class Cl_vBanco extends Cl_vGeneral {
         this.btAgregarTransaccion = this.crearHTMLButtonElement("btAgregarTransaccion", {
             onclick: () => this.agregarTransaccion(),
         });
+        this.btAddTransaccion = this.crearHTMLButtonElement("addTB", {
+            onclick: () => this.addTransaccion(),
+        });
         this.divTransaccionesRegistradas = this.crearHTMLElement("divTransaccionesRegistradas", {
             type: tHTMLElement.CONTAINER,
             refresh: () => this.mostrarTransaccionesRegistradas(),
@@ -29,24 +32,39 @@ export default class Cl_vBanco extends Cl_vGeneral {
         });
     }
     agregarTransaccion() {
-        let tipoTransaccion = prompt("Ingrese el tipo de transacción (1 para Cargo, 2 para Abono)");
+        const modal = document.getElementById("addTransaccion");
+        modal.style.display = "block";
+        const azu = document.getElementById("azufre");
+        azu.style.display = "none";
+    }
+    addTransaccion() {
+        // Leer valores desde los inputs del formulario (ids dentro del modal/form)
+        const fechaEl = document.getElementById("fecha");
+        const descripcionEl = document.getElementById("descripcion");
+        const referenciaEl = document.getElementById("referencia");
+        const categoriaEl = document.getElementById("categoria");
+        const tipoEl = document.getElementById("tipoTransaccion");
+        const montoEl = document.getElementById("monto");
+        if (!fechaEl || !descripcionEl || !referenciaEl || !categoriaEl || !tipoEl || !montoEl)
+            return;
+        const tipoTransaccion = tipoEl.value;
         if (!tipoTransaccion || (tipoTransaccion !== "1" && tipoTransaccion !== "2"))
             return;
-        let fecha = prompt("Ingrese la fecha de la transacción");
+        const fecha = fechaEl.value;
         if (!fecha)
             return;
-        let descripcion = prompt("Ingrese la descripción de la transacción");
+        const descripcion = descripcionEl.value;
         if (!descripcion)
             return;
-        let referencia = prompt("Ingrese la referencia de la transacción");
+        const referencia = referenciaEl.value;
         if (!referencia)
             return;
-        let categoria = prompt("Ingrese la categoría de la transacción");
+        const categoria = categoriaEl.value;
         if (!categoria)
             return;
-        let monto = prompt("Ingrese el monto de la transacción");
-        if (!monto)
-            return;
+        const monto = montoEl.value;
+        const azu = document.getElementById("azufre");
+        azu.style.display = "block";
         this.controlador.agregarTransaccion({
             transaccionData: {
                 fecha: fecha,
@@ -59,6 +77,13 @@ export default class Cl_vBanco extends Cl_vGeneral {
             callback: (error) => {
                 if (error)
                     alert(error);
+                // cerrar modal y resetear form
+                const modal = document.getElementById("addTransaccion");
+                const form = document.getElementById("banco_formAgregarTransaccion");
+                if (form)
+                    form.reset();
+                if (modal)
+                    modal.style.display = "none";
                 this.refresh();
             },
         });
