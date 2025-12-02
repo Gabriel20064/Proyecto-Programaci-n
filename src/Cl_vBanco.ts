@@ -67,7 +67,7 @@ export default class Cl_vBanco extends Cl_vGeneral {
     const azu = document.getElementById("azufre") as HTMLElement;
     azu.style.display = "block";
     this.controlador!.agregarTransaccion({
-<<<<<<< Updated upstream
+      
         transaccionData: {
             fecha: fecha,
             descripcion: descripcion,
@@ -75,15 +75,7 @@ export default class Cl_vBanco extends Cl_vGeneral {
             categoria: Number(categoria),
             monto: Number(monto),
             tipoTransaccion: Number(tipoTransaccion),
-=======
-      transaccionData: {
-        fecha: fecha,
-        descripcion: descripcion,
-        referencia: referencia,
-        categoria: Number(categoria),
-        monto: Number(monto),
-        tipoTransaccion: Number(tipoTransaccion),
->>>>>>> Stashed changes
+
       },
       callback: (error: string | false) => {
         if (error) alert(error);
