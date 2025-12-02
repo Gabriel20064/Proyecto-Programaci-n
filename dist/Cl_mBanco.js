@@ -30,13 +30,14 @@ export default class Cl_mBanco {
         });
         return lista;
     }
+    //Metodos
     procesarTransacciones(t) {
         this.cntTransacciones++;
-        if (t.transaccion() > 0) {
-            this.acmMontoEntrada += t.transaccion();
+        if (t.tipoTransaccion === 1) {
+            this.acmMontoSalida += t.montoTransaccion();
         }
         else {
-            this.acmMontoSalida += t.transaccion();
+            this.acmMontoEntrada += t.montoTransaccion();
         }
     }
     cantidadTransacciones() {

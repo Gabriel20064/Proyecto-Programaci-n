@@ -1,25 +1,25 @@
 export interface iTransaccion {
-    descripcion: string;
-    monto: number;
-    referencia: string;
-    categoria: string;
-    fecha: number;
     tipoTransaccion: number;
+    fecha: string;
+    descripcion: string;
+    referencia: string;
+    categoria: number;
+    monto: number;
 }
 export default class Cl_mTransaccion{
-    protected _descripcion: string ="";
-    protected _monto: number =0 ;
-    protected _referencia: string ="";
-    protected _categoria: string ="";
-    protected _fecha: number = 0;
     protected _tipoTransaccion: number = 0;
-    constructor({descripcion, monto, referencia, categoria, fecha, tipoTransaccion}: {descripcion: string, monto: number, referencia: string, categoria: string, fecha: number, tipoTransaccion: number}){
+    protected _fecha: string = "";
+    protected _descripcion: string ="";
+    protected _referencia: string ="";
+    protected _categoria: number =0 ;
+    protected _monto: number =0 ;
+    constructor({descripcion, monto, referencia, categoria, fecha, tipoTransaccion}: {descripcion: string, monto: number, referencia: string, categoria: number, fecha: string, tipoTransaccion: number}){
+        this.tipoTransaccion = tipoTransaccion;
+        this.fecha = fecha;
         this.descripcion = descripcion;
-        this.monto = monto;
         this.referencia = referencia;
         this.categoria = categoria;
-        this.fecha = fecha;
-        this.tipoTransaccion = tipoTransaccion;
+        this.monto = monto;
     }
     public set descripcion(d: string) {
         this._descripcion = d;
@@ -39,16 +39,16 @@ export default class Cl_mTransaccion{
     public get referencia(): string {
         return this._referencia.trim().toUpperCase();
     }
-    public set categoria(c: string) {
+    public set categoria(c: number) {
         this._categoria = c;
     }
-    public get categoria(): string {
+    public get categoria(): number {
         return this._categoria;
     }
-    public set fecha(f: number) {
-        this._fecha = +f;
+    public set fecha(f: string) {
+        this._fecha = f;
     }
-    public get fecha(): number {
+    public get fecha(): string {
         return this._fecha;
     }
     public set tipoTransaccion(t: number) {
@@ -67,11 +67,11 @@ export default class Cl_mTransaccion{
     if (this._monto === 0) return "El monto no puede estar vacio.";
     // Validacion de descripcion
     if (this._descripcion.length === 0) return "La descripcion no puede estar vacía.";
-    if (this._descripcion.length > 15) return "La descripcion no debe tener más de 15 caracteres.";
+    if (this._descripcion.length > 20) return "La descripcion no debe tener más de 15 caracteres.";
     return false;
   }
   //tipo=1 abono - tipo=2 cargo
-  public transaccion(): number {
+  public montoTransaccion(): number {
     if (this._tipoTransaccion === 1) {
         return this._monto;
     } else {
@@ -80,12 +80,12 @@ export default class Cl_mTransaccion{
   }
   toJSON(){
     return {
+    tipoTransaccion: this._tipoTransaccion,
+    fecha: this._fecha,
     descripcion: this._descripcion,
-    monto: this._monto,
     referencia: this._referencia,
     categoria: this._categoria,
-    fecha: this._fecha,
-    tipoTransaccion: this._tipoTransaccion,
+    monto: this.monto,
     }
   }
 }
