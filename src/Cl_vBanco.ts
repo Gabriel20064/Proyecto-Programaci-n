@@ -1,64 +1,47 @@
-import { iTransaccion } from "./Cl_mTransaccion.js";
-import Cl_vGeneral, { tHTMLElement } from "./tools/Cl_vGeneral.js";
-export default class Cl_vBanco extends Cl_vGeneral {
-  private btAgregarTransaccion: HTMLButtonElement;
-  private divTransaccionesRegistradas: HTMLDivElement;
-  constructor() {
-    super({ formName: "main" });
-    this.btAgregarTransaccion = this.crearHTMLButtonElement("btAgregarTransaccion", {
-      onclick: () => this.agregarTransaccion(),
-    });
-    this.divTransaccionesRegistradas = this.crearHTMLElement(
-      "divTransaccionesRegistradas",
-      {
-        type: tHTMLElement.CONTAINER,
-        refresh: () => this.mostrarTransaccionesRegistradas(),
-      }
-    ) as HTMLDivElement;
-  }
-  mostrarTransaccionesRegistradas() {
-    this.divTransaccionesRegistradas.innerHTML = "";
-    let banco = this.controlador?.transaccionesRegistradas();
-    if (!banco) return;
-    banco.forEach((transaccion: iTransaccion) => {
-      this.divTransaccionesRegistradas.innerHTML += `<tr>
-      <td class="colNumber">${transaccion.fecha}</td>
-      <td>${transaccion.descripcion}</td>
-      <td class="colNumber">${transaccion.referencia}</td>
-      <td>${transaccion.tipoTransaccion === 2 ? "Ingreso" : transaccion.categoria === 1 ? "Salud" : transaccion.categoria === 2 ? "Educación" : transaccion.categoria === 3 ? "Alimentación" : transaccion.categoria === 4 ? "Servicios" : "Otro"}</td>
-      <td class="spanInfo">${transaccion.tipoTransaccion === 1 ? "Cargo" : "Abono"}</td>
-      <td class="negative-amount">${transaccion.tipoTransaccion === 1 ? "-" +transaccion.monto.toFixed(2) + " Bs.": "---"} </td>
-      <td class="positive-amount">${transaccion.tipoTransaccion === 2 ? transaccion.monto.toFixed(2) + " Bs.": "---"} </td>
-    </tr>`;
-    });
-  }
-  agregarTransaccion() {
-    let tipoTransaccion = prompt("Ingrese el tipo de transacción (1 para Cargo, 2 para Abono)");
-    if (!tipoTransaccion || (tipoTransaccion !== "1" && tipoTransaccion !== "2")) return;
-    let fecha = prompt("Ingrese la fecha de la transacción");
-    if (!fecha) return;
-    let descripcion = prompt("Ingrese la descripción de la transacción");
-    if (!descripcion) return;
-    let referencia = prompt("Ingrese la referencia de la transacción");
-    if (!referencia) return;
-    let categoria = prompt("Ingrese la categoría de la transacción");
-    if (!categoria) return;
-    let monto = prompt("Ingrese el monto de la transacción");
-    if (!monto) return;
+import Cl_Controlador from "./Cl_Controlador.js";
+import Cl_mTransaccion from "./Cl_mTransaccion.js";
+import Cl_vTransaccion from "./Cl_vTransaccion.js";
+import Cl_vTransacciones from "./Cl_vTransacciones.js";
+import Cl_vGeneral from "./tools/Cl_vGeneral.js";
+import { opcionFicha } from "./tools/core.tools.js";
 
-    this.controlador!.agregarTransaccion({
-        transaccionData: {
-            fecha: fecha,
-            descripcion: descripcion,
-            referencia: referencia,
-            categoria: Number(categoria),
-            monto: Number(monto),
-            tipoTransaccion: Number(tipoTransaccion),
-      },
-      callback: (error: string | false) => {
-        if (error) alert(error);
-        this.refresh();
-      },
+export default class Cl_vBanco extends Cl_vGeneral {
+  private vTransacciones: Cl_vTransacciones;
+  private vTransaccion: Cl_vTransaccion;
+  private btTransacciones: HTMLButtonElement;
+  private lblTransacciones: HTMLLabelElement;
+  constructor() {
+    super({ formName: "banco" });
+    this.vTransacciones = new Cl_vTransacciones();
+    this.vTransacciones.show({ ver: false });
+    this.vTransaccion = new Cl_vTransaccion();
+    this.vTransaccion.show({ ver: false });
+    this.btTransacciones = this.crearHTMLButtonElement("btTransacciones", {
+      onclick: () => this.controlador!.activarVista({ vista: "transacciones" }),
     });
+    this.lblTransacciones = this.crearHTMLLabelElement("lblTransacciones", {
+      refresh: () => {},
+    });
+  }
+  set controlador(controlador: Cl_Controlador) {
+    super.controlador = controlador;
+    this.vTransacciones.controlador = controlador;
+    this.vTransaccion.controlador = controlador;
+  }
+  get controlador(): Cl_Controlador | null {
+    return super.controlador;
+  }
+  activarVista({
+    vista,
+    opcion,
+    objeto,
+  }: {
+    vista: string;
+    opcion?: opcionFicha;
+    objeto?: Cl_mTransaccion;
+  }): void {
+    this.show({ ver: vista === "banco" });
+    this.vTransacciones.show({ ver: vista === "transacciones" });
+    this.vTransaccion.show({ ver: vista === "transaccion", transaccion: objeto, opcion });
   }
 }
