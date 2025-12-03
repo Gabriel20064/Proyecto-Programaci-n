@@ -7,7 +7,7 @@ export default class Cl_vMaterias extends Cl_vGeneral {
             onclick: () => this.addTransaccion(),
         });
         this.btVolver = this.crearHTMLButtonElement("btVolver", {
-            onclick: () => this.controlador.activarVista({ vista: "ucla" }),
+            onclick: () => this.controlador.activarVista({ vista: "banco" }),
         });
         this.divTransacciones = this.crearHTMLElement("divTransacciones", {
             type: tHTMLElement.CONTAINER,

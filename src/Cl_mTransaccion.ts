@@ -65,7 +65,7 @@ export default class Cl_mTransaccion extends Cl_mTablaWeb{
         return this._tipoTransaccion;
     }
   get descripcionOk(): boolean {
-    return this.descripcion.length <= 20;
+    return this.descripcion.length <= 30;
   }
   get montoOk(): boolean {
     return this.monto > 0;
