@@ -23,13 +23,13 @@
 </head>
 
 <body>
-    <h2>CONCILIACION BANCARIA</h2>
-    <section id="banco">
+    <h2 style="text-align: center;">CONCILIACIÓN BANCARIA</h2>
+    <section id="transacciones">
         <div>
-            <button id="banco_btAgregarTransaccion">Agregar Transaccion</button>
+            <button id="transacciones_btAgregar">Agregar Transaccion</button>
         </div>
     </section>
-    <section style="font-size: 13px;">
+    <section id="transacciones" style="font-size: 13px;">
         <h3 style="font-size: 14px;">TRANSACCIONES REGISTRADAS</h3>
         <table>
             <thead>
@@ -41,11 +41,48 @@
                     <th style="width: 80px;">Tipo de Transaccion</th>
                     <th style="width: 200px;">Cargo</th>
                     <th style="width: 200px;">Abono</th>
-
                 </tr>
             </thead>
-            <tbody id="banco_divTransaccionesRegistradas"> </tbody>
+            <tbody id="transacciones_divTransacciones"> </tbody>
         </table>
+    </section>
+    <section id="transaccion">
+        <h3><span id="materia_lblOpcion"></span> Transacción</h3>
+        <div class="ficha">
+            <label>Descripción:
+                <input type="text" id="transaccion_inDescripción"></input>
+            </label>
+            <label>Monto:
+                <input type="text" id="transaccion_inMonto" style="width: 100px;"></input>
+            </label>
+            <label>Referencia:
+                <input type="text" id="transaccion_Referencia">
+            </label>
+            <div class="fila-radio">
+            <label>Categoría:</label>
+            <div class="grupo-opciones">
+                <div class="opcion">
+                    <input type="radio" id="cat_salud" value="Salud" name="Categoria">
+                    <label for="cat_salud">Salud</label>
+                </div>
+                <div class="opcion">
+                    <input type="radio" id="cat_educacion" value="Educacion" name="Categoria">
+                    <label for="cat_educacion">Educación</label>
+                </div>
+                <div class="opcion">
+                    <input type="radio" id="cat_otro" value="Otro" name="Categoria">
+                    <label for="cat_otro">Otro</label>
+                </div>
+            </div>
+        </div>
+            <label>Fecha:
+                <input type="date" id="transaccion_inFecha">
+            </label>
+        </div>
+        <div>
+            <button id="transaccion_btAceptar">Aceptar</button>
+            <button id="transaccion_btCancelar">Cancelar</button>
+        </div>
     </section>
     <script type="module">
         import main from "./dist/Main.js";
