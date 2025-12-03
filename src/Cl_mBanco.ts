@@ -1,17 +1,22 @@
 import Cl_dcytDb from "https://gtplus.net/forms2/dcytDb/api/Cl_dcytDb.php?v251129-1230";
 import Cl_mTransaccion, {iTransaccion} from "./Cl_mTransaccion.js";
+interface iResultTransaccion {
+    objects: [iTransaccion] | null;
+    error: string | false;
+}
 export default class Cl_mBanco{
-    private db: Cl_dcytDb;
     private acmMontoCargo: number = 0;
     private acmMontoAbonado: number = 0;
     private cntTransacciones: number = 0;
-    private banco: Cl_mTransaccion[] = [];
+
+    private db: Cl_dcytDb;
+    private transacciones: Cl_mTransaccion[];
     readonly tbTransaccion: string = "demo17.transaccion";
     constructor() {
     this.db = new Cl_dcytDb({ aliasCuenta: "Usuario" });
-        
+    this.transacciones = []
   }
-    agregarTransaccion({
+    addTransaccion({
         dtTransaccion,
         callback,
     }: {
@@ -20,47 +25,40 @@ export default class Cl_mBanco{
     }): void {
     let transaccion = new Cl_mTransaccion(dtTransaccion);
     // Validar que no exista otra materia con el mismo código
-    if (this.banco.find((b) => b.referencia === dtTransaccion.referencia))
-        
+    if (this.transacciones.find((t) => t.referencia === dtTransaccion.referencia))
       callback(`La referencia ${dtTransaccion.referencia} ya existe.`);
+
     // Validar que la materia sea correcta
     else if (!transaccion.transaccionOk) callback(transaccion.transaccionOk);
     // Guardar la materia
     else
       this.db.addRecord({
-        tabla: this.tbMateria,
+        tabla: this.tbTransaccion,
        // registroAlias: dtMateria.codigo,
-        object: materia,
-        callback: ({ id, objects: materias, error }) => {
-          if (!error) this.llenarMaterias(materias);
+        object: transaccion,
+        callback: ({ id, objects: transacciones, error }) => {
+          if (!error) this.llenarTransacciones(transacciones);
           callback?.(error);
         },
       });
         //localStorage
-        localStorage.setItem("Banco", JSON.stringify(this.listar()));
-        callback(false);
+        /*localStorage.setItem("Banco", JSON.stringify(this.listar()));
+        callback(false);*/
     }
-    listar(): iTransaccion[]{
-        let lista: iTransaccion[] = [];
-        this.banco.forEach((dtTransaccion) => {
-            lista.push(dtTransaccion.toJSON());
-        });
-        return lista;
-    }
-    editarTransaccion({  
-        transaccionData,
+    editTransaccion({  
+    dtTransaccion,
         callback,
         }: {
-        transaccionData: iTransaccion;
+        dtTransaccion: iTransaccion;
         callback: (error: string | boolean) => void;
         }): void {
-        let dtTransaccion = new Cl_mTransaccion(transaccionData);
+        let transaccion = new Cl_mTransaccion(dtTransaccion);
     // Validar que los datos de dtTransaccion sean correctos
-    if (!dtTransaccion.transaccionOk) callback(dtTransaccion.transaccionOk);
+    if (!transaccion.transaccionOk) callback(transaccion.transaccionOk);
     else
       this.db.editRecord({
         tabla: this.tbTransaccion,
-        object: dtTransaccion,
+        object: transaccion,
         callback: ({ objects: transacciones, error }) => {
           if (!error) this.llenarTransacciones(transacciones);
           callback?.(error);
@@ -68,6 +66,44 @@ export default class Cl_mBanco{
       });
     }
 
+    deleteTransaccion({
+    referencia,
+    callback,
+    }: {
+    referencia: string;
+    callback: (error: string | boolean) => void;
+  }): void {
+    let indice = this.transacciones.findIndex((t) => t.referencia === referencia);
+    // Verificar si la materia existe
+    if (indice === -1) callback(`La transaccion con referencia ${referencia} no existe.`);
+    else {
+        this.db.deleteRecord({
+          tabla: this.tbTransaccion,
+          object: this.transacciones[indice],
+          callback: ({ objects: transacciones, error }) => {
+            if (!error) this.llenarTransacciones(transacciones);
+            callback?.(error);
+          },
+        });
+      
+    }
+  }
+dtTransacciones(): iTransaccion[] {
+    return this.transacciones.map((t) => t.toJSON());
+  }
+
+  transaccion(referencia:string): Cl_mTransaccion | null {
+    let transaccion = this.transacciones.find((t) => t.referencia === referencia);
+    return transaccion ? transaccion : null;
+  }
+//Cargar?
+
+llenarTransacciones(transacciones: iTransaccion[]): void {
+    this.transacciones = [];
+    transacciones.forEach((transaccion: iTransaccion) => 
+        this.transacciones.push(new Cl_mTransaccion(transaccion))
+    );
+  }
 
 
 
@@ -75,9 +111,7 @@ export default class Cl_mBanco{
 
 
 
-
-
-
+/*
     //Metodos
     procesarTransacciones(t:Cl_mTransaccion) {
         this.cntTransacciones++;
@@ -104,4 +138,5 @@ export default class Cl_mBanco{
             return "Perdida de" + (this.montoTotalTSalidas() + this.montoTotalTEntradas());
         }
     }  
-        }
+    */
+}
