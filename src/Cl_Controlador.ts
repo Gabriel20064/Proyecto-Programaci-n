@@ -45,9 +45,9 @@ export default class Cl_Controlador {
       callback,
     });
   }
-  Transaccion(referencia: string): Cl_mTransaccion | null {
-    let Transaccion = this.modelo.transaccion(referencia);
-    if (Transaccion) return new Cl_mTransaccion(Transaccion.toJSON());
+  transaccion(referencia: string): Cl_mTransaccion | null {
+    let transaccion = this.modelo.transaccion(referencia);
+    if (transaccion) return new Cl_mTransaccion(transaccion.toJSON());
     else return null;
   }
   get dtTransacciones(): iTransaccion[] {
