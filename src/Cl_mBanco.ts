@@ -13,8 +13,8 @@ export default class Cl_mBanco{
     private transacciones: Cl_mTransaccion[];
     readonly tbTransaccion: string = "demo17.transaccion";
     constructor() {
-    this.db = new Cl_dcytDb({ aliasCuenta: "Usuario" });
-    this.transacciones = []
+      this.db = new Cl_dcytDb({ aliasCuenta: "Usuario" });
+      this.transacciones = []
   }
     addTransaccion({
         dtTransaccion,
@@ -49,10 +49,10 @@ export default class Cl_mBanco{
     dtTransaccion,
         callback,
         }: {
-        dtTransaccion: iTransaccion;
-        callback: (error: string | boolean) => void;
+          dtTransaccion: iTransaccion;
+          callback: (error: string | boolean) => void;
         }): void {
-        let transaccion = new Cl_mTransaccion(dtTransaccion);
+          let transaccion = new Cl_mTransaccion(dtTransaccion);
     // Validar que los datos de dtTransaccion sean correctos
     if (!transaccion.transaccionOk) callback(transaccion.transaccionOk);
     else
@@ -67,11 +67,11 @@ export default class Cl_mBanco{
     }
 
     deleteTransaccion({
-    referencia,
-    callback,
+      referencia,
+      callback,
     }: {
-    referencia: string;
-    callback: (error: string | boolean) => void;
+      referencia: string;
+      callback: (error: string | boolean) => void;
   }): void {
     let indice = this.transacciones.findIndex((t) => t.referencia === referencia);
     // Verificar si la materia existe
