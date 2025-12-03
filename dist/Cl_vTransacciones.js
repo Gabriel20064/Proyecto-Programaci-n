@@ -21,13 +21,13 @@ export default class Cl_vMaterias extends Cl_vGeneral {
         if (!transacciones)
             return;
         transacciones.forEach((transaccion, index) => (this.divTransacciones.innerHTML += `<tr>
-            <td>${transaccion.fecha}</td>
-            <td>${transaccion.descripcion}</td>
-            <td>${transaccion.referencia}</td>
-            <td>${transaccion.monto}</td>
-            <td>${transaccion.tipoTransaccion}</td>
-            <td>${transaccion.categoria}</td>
-            <td>
+          <td class="colNumber">${transaccion.fecha}</td>
+        <td>${transaccion.descripcion}</td>
+        <td class="colNumber">${transaccion.referencia}</td>
+        <td>${transaccion.tipoTransaccion === 2 ? "Ingreso" : transaccion.categoria === 1 ? "Salud" : transaccion.categoria === 2 ? "Educación" : transaccion.categoria === 3 ? "Alimentación" : transaccion.categoria === 4 ? "Servicios" : "Otro"}</td>
+        <td class="spanInfo">${transaccion.tipoTransaccion === 1 ? "Cargo" : "Abono"}</td>
+        <td class="negative-amount">${transaccion.tipoTransaccion === 1 ? "-" + transaccion.monto.toFixed(2) + " Bs." : "---"} </td>
+        <td class="positive-amount">${transaccion.tipoTransaccion === 2 ? transaccion.monto.toFixed(2) + " Bs." : "---"} </td>
                 <button id="transacciones_btEditar_${index}">Editar</button>
                 <button id="transacciones_btEliminar_${index}">X</button>
             </td>
