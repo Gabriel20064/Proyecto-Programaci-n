@@ -1,19 +1,26 @@
+import Cl_mTablaWeb from "./tools/Cl_mTablaWeb.js";
 export interface iTransaccion {
-    descripcion: string;
-    monto: number;
-    referencia: string;
-    categoria: number;
-    fecha: string;
-    tipoTransaccion: number;
+  //Tools Cl_mTablaWeb
+  id: number | null;
+  creadoEl: string | null;
+  alias: string | null;  
+//Atributos de la clase
+  fecha: string;
+  descripcion: string;
+  referencia: string;
+  monto: number;
+  tipoTransaccion: number;
+  categoria: number;
 }
-export default class Cl_mTransaccion{
+export default class Cl_mTransaccion extends Cl_mTablaWeb{
     protected _descripcion: string ="";
     protected _monto: number =0 ;
     protected _referencia: string ="";
     protected _categoria: number =0 ;
     protected _fecha: string = "";
     protected _tipoTransaccion: number = 0;
-    constructor({descripcion, monto, referencia, categoria, fecha, tipoTransaccion}: {descripcion: string, monto: number, referencia: string, categoria: number, fecha: string, tipoTransaccion: number}){
+    constructor({id, creadoEl, alias, fecha, descripcion, monto, referencia, categoria, tipoTransaccion}: iTransaccion = {id: null, creadoEl: null, alias: null, fecha: "", descripcion: "", monto: 0, referencia: "", categoria: 0, tipoTransaccion: 0}) {
+        super({id, creadoEl, alias});
         this.descripcion = descripcion;
         this.monto = monto;
         this.referencia = referencia;
@@ -58,13 +65,13 @@ export default class Cl_mTransaccion{
         return this._tipoTransaccion;
     }
   get descripcionOk(): boolean {
-    return this.descripcion.length === 4;
+    return this.descripcion.length <= 20;
   }
   get montoOk(): boolean {
     return this.monto > 0;
   }
   get referenciaOk(): boolean {
-    return this.referencia.length === 4;
+    return this.referencia.length === 7;
   }
   get categoriaOk(): boolean {{}
     return this.categoria > 0;
@@ -84,19 +91,6 @@ export default class Cl_mTransaccion{
     if (!this.tipoTransaccionOk) return "tipoTransaccion";
     return true;
   }
-    //Metodo de validacion 
-  public error(): string | false {
-    // Validacion de Referencia
-    if (this._referencia.length === 0) return "La referencia no puede estar vacía.";
-    if (this._referencia.length !== 4) return "La referencia debe tener al menos 4 digitos.";
-    // Validacion de monto
-    if (this._monto < 0) return "El monto debe ser mayor a 0.";
-    if (this._monto === 0) return "El monto no puede estar vacio.";
-    // Validacion de descripcion
-    if (this._descripcion.length === 0) return "La descripcion no puede estar vacía.";
-    if (this._descripcion.length > 20) return "La descripcion no debe tener más de 15 caracteres.";
-    return false;
-  }
   //tipo=1 abono - tipo=2 cargo
   public montoTransaccion(): number {
     if (this._tipoTransaccion === 1) {
@@ -105,14 +99,15 @@ export default class Cl_mTransaccion{
         return this._monto*(-1);
     }
   }
-  toJSON(){
+  toJSON(): iTransaccion{
     return {
-    tipoTransaccion: this._tipoTransaccion,
-    fecha: this._fecha,
-    descripcion: this._descripcion,
-    referencia: this._referencia,
-    categoria: this._categoria,
-    monto: this.monto,
+      ...super.toJSON(),
+      fecha: this._fecha,
+      descripcion: this._descripcion,
+      referencia: this._referencia,
+      monto: this.monto,
+      tipoTransaccion: this._tipoTransaccion,
+      categoria: this._categoria,
     }
   }
 }
