@@ -29,7 +29,7 @@ export default class Cl_mBanco{
     else
       this.db.addRecord({
         tabla: this.tbMateria,
-       // registroAlias: dtMateria.codigo,
+       // registroAlias: dtMateria.referencia,
         object: materia,
         callback: ({ id, objects: materias, error }) => {
           if (!error) this.llenarMaterias(materias);

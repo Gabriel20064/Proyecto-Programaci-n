@@ -9,33 +9,61 @@ export default class Cl_Controlador {
     this.modelo = modelo;
     this.vista = vista;
   }
-  agregarTransaccion({
-    transaccionData,
+  addTransaccion({
+    dtTransaccion,
     callback,
   }: {
-    transaccionData: iTransaccion;
-    callback: Function;
+    dtTransaccion: iTransaccion;
+    callback: (error: string | false) => void;
   }): void {
-    this.modelo.agregarTransaccion({
-      transaccion: new Cl_mTransaccion(transaccionData),
-      callback: (error: string | false) => {
-        callback(error);
-      },
-    });
-  }
-  transaccionesRegistradas(): iTransaccion[] {
-    return this.modelo.listar();
-  }
-   editarTransaccion({
-    transaccionData,
-    callback,
-  }: {
-    transaccionData: iTransaccion;
-    callback: (error: string | boolean) => void;
-  }): void {
-    this.modelo.editarTransaccion({
-      transaccionData,
+    this.modelo.addTransaccion({
+      dtTransaccion,
       callback,
     });
+  }
+  editTransaccion({
+    dtTransaccion,
+    callback,
+  }: {
+    dtTransaccion: iTransaccion;
+    callback: (error: string | boolean) => void;
+  }): void {
+    this.modelo.editTransaccion({
+      dtTransaccion,
+      callback,
+    });
+  }
+  deleteTransaccion({
+    referencia,
+    callback,
+  }: {
+    referencia: string;
+    callback: (error: string | boolean) => void;
+  }): void {
+    this.modelo.deleteTransaccion({
+      referencia,
+      callback,
+    });
+  }
+  Transaccion(referencia: string): Cl_mTransaccion | null {
+    let Transaccion = this.modelo.Transaccion(referencia);
+    if (Transaccion) return new Cl_mTransaccion(Transaccion.toJSON());
+    else return null;
+  }
+  get dtTransaccions(): iTransaccion[] {
+    let dtTransaccions = this.modelo.dtTransaccions();
+    dtTransaccions.sort((a, b) => a.referencia.localeCompare(b.referencia));
+    return dtTransaccions;
+  }
+  activarVista({
+    vista,
+    opcion,
+    objeto,
+  }: {
+    vista: string;
+    opcion?: opcionFicha;
+    objeto?: Cl_mTransaccion;
+  }): void {
+    this.vista.activarVista({ vista, opcion, objeto });
   }
 }
