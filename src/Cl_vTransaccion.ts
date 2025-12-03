@@ -21,7 +21,7 @@ export default class Cl_vTransaccion extends Cl_vGeneral {
         this.lblOpcion = this.crearHTMLLabelElement("lblOpcion", {
             refresh: () => 
             (this.lblOpcion.innerHTML = 
-              this.opcion === opcionFicha.add ? "Agregar" :  "Editar"),
+                this.opcion === opcionFicha.add ? "Agregar" :  "Editar"),
         });
         this.inDescripcion = this.crearHTMLInputElement("inDescripcion", {
             oninput: () => {
@@ -34,7 +34,7 @@ export default class Cl_vTransaccion extends Cl_vGeneral {
         this.inDescripcion.disabled = this.opcion === opcionFicha.edit;
         this.inMonto = this.crearHTMLInputElement("inMonto", {
             oninput: () => {
-                this.inMonto.value = this.transaccion.monto = this.inMonto.value;
+                this.transaccion.monto = +this.inMonto.value;
                 this.refresh();
             },
             refresh: () => 
@@ -50,7 +50,7 @@ export default class Cl_vTransaccion extends Cl_vGeneral {
         });
         this.inCategoria = this.crearHTMLInputElement("inCategoria", {
             oninput: () => {
-                this.inCategoria.value = this.transaccion.categoria = this.inCategoria.value;
+            this.transaccion.categoria = +this.inCategoria.value;
                 this.refresh();
             },
             refresh: () => 
@@ -66,7 +66,7 @@ export default class Cl_vTransaccion extends Cl_vGeneral {
         });
         this.inTipoTransaccion = this.crearHTMLInputElement("inTipoTransaccion", {
             oninput: () => {
-                this.inTipoTransaccion.value = this.transaccion.tipoTransaccion = this.inTipoTransaccion.value;
+                this.transaccion.tipoTransaccion = +this.inTipoTransaccion.value;
                 this.refresh();
             },
             refresh: () => 
@@ -85,23 +85,23 @@ export default class Cl_vTransaccion extends Cl_vGeneral {
     aceptar() {
         if (this.opcion === opcionFicha.add)
             this.controlador!.addTransaccion({
-         dtTransaccion: this.transaccion.toJSON(),
+        dtTransaccion: this.transaccion.toJSON(),
         callback: (error) => {
             if (!error) this.controlador!.activarVista({ vista: "transaciones" });
             else alert(`Error: ${error}`);
-         }
+        }
         });
         else{
-          this.controlador!.editTransacion({
+            this.controlador!.editTransaccion({
             dtTransaccion: this.transaccion.toJSON(),
         callback: (error) => {
-          if (!error) this.controlador!.activarVista({ vista: "transaciones" });
-          else alert(`Error: ${error}`);
+            if (!error) this.controlador!.activarVista({ vista: "transaciones" });
+            else alert(`Error: ${error}`);
         },
-      });
+    });
     }
-  }   
-  show(
+}   
+show(
     {
         ver,
         transaccion,
@@ -114,7 +114,7 @@ export default class Cl_vTransaccion extends Cl_vGeneral {
         ver: false,
         transaccion: new Cl_mTransaccion(),
     }
-  ): void {
+    ): void {
     super.show({ ver });
     if (opcion) {
         this.opcion = opcion;
@@ -126,5 +126,5 @@ export default class Cl_vTransaccion extends Cl_vGeneral {
         this.transaccion.tipoTransaccion = transaccion!.tipoTransaccion;
         this.refresh();
     }
-  }
+}
 }
