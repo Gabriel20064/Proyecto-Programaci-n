@@ -46,20 +46,20 @@
             <tbody id="transacciones_divTransacciones"> </tbody>
         </table>
     </section>
-    <section id="transaccion">
-        <h3><span id="materia_lblOpcion"></span> Transacción</h3>
+    <section id="transaccion" hidden>
+        <h3><span id="transaccion_lblOpcion"></span> Transacción</h3>
         <div class="ficha">
-            <label>Descripción:
+            <label hidden id="transaccion_inDescripción">Descripción:
                 <input type="text" id="transaccion_inDescripción"></input>
             </label>
-            <label>Monto:
+            <labe hidden id="transaccion_inMonto">Monto:
                 <input type="text" id="transaccion_inMonto" style="width: 100px;"></input>
             </label>
-            <label>Referencia:
+            <label hidden id="transaccion_inReferencia">Referencia:
                 <input type="text" id="transaccion_Referencia">
             </label>
             <div class="fila-radio">
-            <label>Categoría:</label>
+            <label hidden id="transaccion_inCategoria">Categoría:</label>
             <div class="grupo-opciones">
                 <div class="opcion">
                     <input type="radio" id="cat_salud" value="Salud" name="Categoria">
@@ -75,18 +75,18 @@
                 </div>
             </div>
         </div>
-            <label>Fecha:
+            <label hidden id="transaccion_inFecha">Fecha:
                 <input type="date" id="transaccion_inFecha">
             </label>
         </div>
         <div>
-            <button id="transaccion_btAceptar">Aceptar</button>
-            <button id="transaccion_btCancelar">Cancelar</button>
+            <button id="transaccion_btAceptar" hidden>Aceptar</button>
+            <button id="transaccion_btCancelar" hidden>Cancelar</button>
         </div>
     </section>
     <script type="module">
-        import main from "./dist/Main.js";
-        new main();
+        import Main from "./dist/Main.js";
+        new Main();
     </script>
 </body>
 
