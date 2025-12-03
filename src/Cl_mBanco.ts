@@ -85,7 +85,6 @@ export default class Cl_mBanco{
             callback?.(error);
           },
         });
-      
     }
   }
 dtTransacciones(): iTransaccion[] {
@@ -97,15 +96,37 @@ dtTransacciones(): iTransaccion[] {
     return transaccion ? transaccion : null;
   }
 //Cargar?
-
+  cargar(callback: (error: string | false) => void): void {
+    // Obtener la información desde la Web Storage
+    this.db.listRecords({
+      tabla: this.tbTransaccion,
+      callback: ({ objects, error }: iResultTransaccion) => {
+        if (error) callback(`Error cargando transacciones: ${error}`);
+        else
+          this.db.listRecords({
+            tabla: this.tbTransaccion,
+            callback: ({ objects: transacciones, error }) => {
+              if (!error) {
+                if (transacciones) {
+                  this.llenarTransacciones(transacciones);
+                  callback(false);
+            }
+                callback(false);
+              }
+            },
+          });
+      },
+    });
+  }
 llenarTransacciones(transacciones: iTransaccion[]): void {
     this.transacciones = [];
     transacciones.forEach((transaccion: iTransaccion) => 
         this.transacciones.push(new Cl_mTransaccion(transaccion))
     );
   }
-
-
+agregarTransaccion(transaccion: Cl_mTransaccion): void {
+    this.transacciones.push(transaccion);
+  }
 
 
 

@@ -66,4 +66,15 @@ export default class Cl_Controlador {
   }): void {
     this.vista.activarVista({ vista, opcion, objeto });
   }
+transaccionesRegistradas(): Cl_mTransaccion[] {
+    let dtTransacciones = this.modelo.dtTransacciones();
+    let transacciones: Cl_mTransaccion[] = [];
+    dtTransacciones.forEach((transaccion) => {
+      transacciones.push(new Cl_mTransaccion(transaccion));
+    });
+    return transacciones;
+  }
+  agregarTransaccion() {
+    this.activarVista({ vista: "transaccion", opcion: opcionFicha.add });
+  }
 }
