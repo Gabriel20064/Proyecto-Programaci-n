@@ -43,10 +43,10 @@ export default class Cl_vMaterias extends Cl_vGeneral {
     );
     transacciones.forEach((transaccion: iTransaccion, index) => {
       this.crearHTMLButtonElement(`btEditar_${index}`, {
-        onclick: () => this.editarTransaccion(transaccion.codigo),
+        onclick: () => this.editarTransaccion(transaccion.referencia),
       });
       this.crearHTMLButtonElement(`btEliminar_${index}`, {
-        onclick: () => this.deleteTransaccion(transaccion.codigo),
+        onclick: () => this.deleteTransaccion(transaccion.referencia),
       });
     });
   }
@@ -56,8 +56,8 @@ export default class Cl_vMaterias extends Cl_vGeneral {
       opcion: opcionFicha.add,
     });
   }
-  editarTransaccion(codigo: string) {
-    let transaccion = this.controlador?.transaccion(codigo);
+  editarTransaccion(referencia: string) {
+    let transaccion = this.controlador?.transaccion(referencia);
     if (transaccion)
       this.controlador?.activarVista({
         vista: "transaccion",
@@ -65,13 +65,13 @@ export default class Cl_vMaterias extends Cl_vGeneral {
         objeto: transaccion,
       });
   }
-  deleteTransaccion(codigo: string) {
-    if (confirm(`¿Está seguro de eliminar la transaccion ${codigo}?`))
+  deleteTransaccion(referencia: string) {
+    if (confirm(`¿Está seguro de eliminar la transaccion ${referencia}?`))
       this.controlador?.deleteTransaccion({
-        codigo,
+        referencia,
         callback: (error) => {
           if (error)
-            alert(`No se pudo eliminar la transaccion ${codigo}.\n${error}`);
+            alert(`No se pudo eliminar la transaccion ${referencia}.\n${referencia}`);
           else this.mostrarTransacciones();
         },
       });
