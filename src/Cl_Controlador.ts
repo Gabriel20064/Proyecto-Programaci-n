@@ -46,14 +46,14 @@ export default class Cl_Controlador {
     });
   }
   Transaccion(referencia: string): Cl_mTransaccion | null {
-    let Transaccion = this.modelo.Transaccion(referencia);
+    let Transaccion = this.modelo.transaccion(referencia);
     if (Transaccion) return new Cl_mTransaccion(Transaccion.toJSON());
     else return null;
   }
-  get dtTransaccions(): iTransaccion[] {
-    let dtTransaccions = this.modelo.dtTransaccions();
-    dtTransaccions.sort((a, b) => a.referencia.localeCompare(b.referencia));
-    return dtTransaccions;
+  get dtTransacciones(): iTransaccion[] {
+    let dtTransacciones = this.modelo.dtTransacciones();
+    dtTransacciones.sort((a, b) => a.referencia.localeCompare(b.referencia));
+    return dtTransacciones;
   }
   activarVista({
     vista,
