@@ -100,7 +100,15 @@ h4 {
   color: var(--accent-green);
   font-size: 1.1rem;
 }
-
+select {
+  padding: 14px;
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background: var(--surface);
+  margin-top: auto;
+}
 
 button {
   margin-top: 16px;
